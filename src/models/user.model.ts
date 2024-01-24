@@ -9,14 +9,14 @@ const AddressSchema = new mongoose.Schema({
 });
 
 const UserSchema = new mongoose.Schema({
-  name: String,
+  firstName: String,
+  lastName: String,
   email: String,
   password: String,
-  lastName: String,
-  age: Number,
-  DOB: Date,
+  age: { type: String, default: "20" },
+  DOB: { type: String, default: "06-20-96" },
   address: AddressSchema,
-  phoneNumber: Number,
+  phoneNumber: { type: String, default: "09690243355" },
   gender: {
     type: String,
     enum: Object.values(USER_GENDER),
@@ -24,6 +24,7 @@ const UserSchema = new mongoose.Schema({
   },
   occupation: {
     type: String,
+    default: "Software Engineer",
   },
   nationality: {
     type: String,
