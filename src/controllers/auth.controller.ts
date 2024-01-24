@@ -3,7 +3,7 @@ import "express-async-errors";
 import { UnAuthenticatedError } from "../errors/customErrors";
 import User from "../models/user.model";
 import { comparePassword, hashedPassword } from "../utils/hashedPassword";
-import { createJWT } from "../utils/tokenUtil";
+import { createJWT } from "../utils/tokenUtils";
 
 export const REGISTER = async (
   req: Request,
@@ -33,9 +33,9 @@ export const LOGIN = async (
   next: NextFunction
 ) => {
   // LOOK IF ITS EXIST
-  const userExist = await User.findOne({ email: req.body.email });
+  const user = await User.findOne({ email: req.body.email });
 
-  if (!userExist) {
+  if (!user) {
     throw new UnAuthenticatedError(
       `Invalid Credentials || Email doesn't exist`
     );
@@ -44,7 +44,7 @@ export const LOGIN = async (
   // COMPARE PASSWORD
   const isPasswordCorrect = await comparePassword(
     req.body.password,
-    userExist.password!
+    user!.password!
   );
   if (!isPasswordCorrect) {
     throw new UnAuthenticatedError(
@@ -53,9 +53,9 @@ export const LOGIN = async (
   }
   // SENDS TOKEN TO CLIENT
   const token = createJWT({
-    userId: userExist!._id,
-    email: userExist.email,
-    role: userExist.role,
+    userId: user!._id,
+    email: user!.email,
+    role: user!.role,
   });
 
   // SENDS BACK RESPONSE
@@ -65,7 +65,7 @@ export const LOGIN = async (
     expires: new Date(Date.now() + oneDay),
     secure: process.env.NODE_ENV === "production",
   });
-  res.status(200).json({ msg: "User Logged In", status: "success", token });
+  res.status(200).json({ msg: "User Logged In", status: "success" });
 };
 
 export const LOGOUT = async (
@@ -73,6 +73,7 @@ export const LOGOUT = async (
   res: Response,
   next: NextFunction
 ) => {
+  res.clearCookie("token");
   res.status(200).json({ msg: "Logged Out!" });
 };
 

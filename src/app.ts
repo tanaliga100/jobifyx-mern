@@ -18,8 +18,8 @@ const app: Express = express();
 const port = process.env.PORT || 8000;
 
 // MIDDLEWARES - TOP
-app.use(express.json());
 app.use(cookieParser());
+app.use(express.json());
 app.use(express.urlencoded({ extended: true }));
 if (process.env.NODE_ENV === "development") {
   app.use(morgan("dev"));
@@ -43,7 +43,7 @@ app.post("/:id", validateTest, (req: Request, res: Response) => {
 });
 
 app.use(`/api/v1/auth`, AuthRoute);
-app.use("/api/v1/users", UserRoute);
+app.use("/api/v1/users", authenticateMiddleware, UserRoute);
 app.use("/api/v1/jobs", authenticateMiddleware, JobRoute);
 
 // MIDDLEWARES - TAIL
