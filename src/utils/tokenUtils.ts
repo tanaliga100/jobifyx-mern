@@ -9,5 +9,7 @@ export const createJWT = (payload: any) => {
 
 export const verifyJWT = (token: any) => {
   const decoded = jwt.verify(token, process.env.JWT_SECRET as any);
+  console.log("DECODED", decoded);
+
   return decoded;
 };

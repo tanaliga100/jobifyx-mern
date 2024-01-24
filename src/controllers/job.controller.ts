@@ -1,15 +1,21 @@
 import { NextFunction, Request, Response } from "express";
 import "express-async-errors";
 import { StatusCodes } from "http-status-codes";
+import { AuthenticatedRequest } from "../middlewares/authenticate.middleware";
 import { default as Job } from "../models/job.model";
+export interface UserPayload {
+  userId: string;
+  role: string;
+}
 
 export const GET_ALL_JOBS = async (
-  req: Request,
+  req: AuthenticatedRequest,
   res: Response,
   next: NextFunction
 ) => {
-  const allJobs = await Job.find({});
+  console.log("TOKEN_PAYLOAD", req.user);
 
+  const allJobs = await Job.find({});
   res
     .status(StatusCodes.OK)
     .json({ msg: "JOBS", length: allJobs.length, data: allJobs });
