@@ -6,13 +6,16 @@ import {
   GET_ALL_JOBS,
   GET_JOB,
 } from "../controllers/job.controller";
-import { validateJobInput } from "../middlewares/validation.middleware";
+import {
+  validateJobInput,
+  validateJobParam,
+} from "../middlewares/validation.middleware";
 const JobRoute = express.Router();
 
 JobRoute.route("/").get(GET_ALL_JOBS);
 JobRoute.route("/").post(validateJobInput, CREATE_JOB);
-JobRoute.route("/:id").get(GET_JOB);
-JobRoute.route("/:id").patch(validateJobInput, EDIT_JOB);
-JobRoute.route("/:id").delete(DELETE_JOB);
+JobRoute.route("/:id").get(validateJobParam, GET_JOB);
+JobRoute.route("/:id").patch(validateJobParam, validateJobInput, EDIT_JOB);
+JobRoute.route("/:id").delete(validateJobParam, DELETE_JOB);
 
 export default JobRoute;

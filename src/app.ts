@@ -7,6 +7,7 @@ import { validateTest } from "./middlewares/validation.middleware";
 import { AuthRoute } from "./routes/auth.route";
 import JobRoute from "./routes/jobs.route";
 import UserRoute from "./routes/user.route";
+
 //For env File
 dotenv.config();
 
@@ -23,6 +24,14 @@ if (process.env.NODE_ENV === "development") {
 
 // ROUTES
 app.post("/", validateTest, (req: Request, res: Response) => {
+  const { name } = req.body;
+  res.status(200).json({
+    msg: "Server Alive :  Typescript !!!",
+    data: name,
+  });
+});
+
+app.post("/:id", validateTest, (req: Request, res: Response) => {
   const { name } = req.body;
   res.status(200).json({
     msg: "Server Alive :  Typescript !!!",
@@ -50,13 +59,12 @@ app.use("*", (req: Request, res: Response) => {
 });
 
 // ERROR MIDDLEWARE
-app.use((err: Error | any, req: Request, res: Response, next: NextFunction) => {
-  console.log("MIDDLEWARE", err.message);
+app.use((err: any, req: Request, res: Response, next: NextFunction) => {
+  console.log("MIDDLEWARE", err);
   const statusCOde = err.statusCode || StatusCodes.INTERNAL_SERVER_ERROR;
   const msg = err.message || "Something went wrong";
-
   res.status(statusCOde).json({
-    msg,
+    FROM_MIDDLEWARE: msg,
   });
 });
 
