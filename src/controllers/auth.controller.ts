@@ -3,6 +3,7 @@ import "express-async-errors";
 import { UnAuthenticatedError } from "../errors/customErrors";
 import User from "../models/user.model";
 import { comparePassword, hashedPassword } from "../utils/hashedPassword";
+import { createJWT } from "../utils/tokenUtil";
 
 export const REGISTER = async (
   req: Request,
@@ -33,13 +34,13 @@ export const LOGIN = async (
 ) => {
   // LOOK IF ITS EXIST
   const userExist = await User.findOne({ email: req.body.email });
-  console.log(userExist);
 
   if (!userExist) {
     throw new UnAuthenticatedError(
       `Invalid Credentials || Email doesn't exist`
     );
   }
+
   // COMPARE PASSWORD
   const isPasswordCorrect = await comparePassword(
     req.body.password,
@@ -50,8 +51,20 @@ export const LOGIN = async (
       `Invalid Credentials || Password don't match`
     );
   }
+  // SENDS TOKEN TO CLIENT
+  const token = createJWT({
+    userId: userExist!._id,
+    email: userExist.email,
+    role: userExist.role,
+  });
 
   // SENDS BACK RESPONSE
+  const oneDay = 1000 * 60 * 60 * 24;
+  res.cookie("token", token, {
+    httpOnly: true,
+    expires: new Date(Date.now() + oneDay),
+    secure: process.env.NODE_ENV === "production",
+  });
   res.status(200).json({ msg: "User Logged In", status: "success" });
 };
 

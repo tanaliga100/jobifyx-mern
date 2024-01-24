@@ -8,19 +8,17 @@ export const GET_ALL_JOBS = async (
   res: Response,
   next: NextFunction
 ) => {
-  try {
-    const allJobs = await Job.find({});
-    if (allJobs.length < 1) {
-      return res.status(200).json({
-        msg: "No Jobs to show",
-      });
-    }
-    res
-      .status(StatusCodes.OK)
-      .json({ msg: "JOBS", length: allJobs.length, data: allJobs });
-  } catch (error) {
-    res.status(StatusCodes.BAD_REQUEST).json({ error: "Something went wrong" });
+  console.log("COOKIE", req);
+
+  const allJobs = await Job.find({});
+  if (allJobs.length < 1) {
+    return res.status(200).json({
+      msg: "No Jobs to show",
+    });
   }
+  res
+    .status(StatusCodes.OK)
+    .json({ msg: "JOBS", length: allJobs.length, data: allJobs });
 };
 
 export const CREATE_JOB = async (
