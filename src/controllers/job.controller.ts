@@ -29,7 +29,8 @@ export const CREATE_JOB = async (
   res: Response,
   next: NextFunction
 ) => {
-  const { company, position } = req.body;
+  const newJob = await Job.create(req.body);
+  res.status(StatusCodes.CREATED).json({ msg: "JOB CREATED", data: newJob });
   // try {
   //   // if (!company || !position) {
   //   //   return res.status(StatusCodes.BAD_REQUEST).json({
@@ -46,8 +47,6 @@ export const CREATE_JOB = async (
   //     msg: "Server Error",
   //   });
   // }
-  const newJob = await Job.create("something");
-  res.status(StatusCodes.CREATED).json({ msg: "JOB CREATED", data: newJob });
 };
 
 export const GET_JOB = async (
