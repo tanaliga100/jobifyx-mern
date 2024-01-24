@@ -6,11 +6,11 @@ import {
   REGISTER,
 } from "../controllers/auth.controller";
 
-const router = express.Router();
+const AuthRoute = express.Router();
 
-router.route("/register").post(REGISTER);
-router.route("/login").post(LOGIN);
-router.route("/forgot-password").post(FORGOT_PASSWORD);
-router.route("/").get(LOGOUT);
+AuthRoute.route("/register").post(REGISTER);
+AuthRoute.route("/login").post(LOGIN);
+AuthRoute.route("/forgot-password").post(FORGOT_PASSWORD);
+AuthRoute.route("/").get(LOGOUT);
 
-export { router as AuthRoute };
+export default AuthRoute;

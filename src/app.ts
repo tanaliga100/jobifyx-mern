@@ -4,7 +4,7 @@ import { StatusCodes } from "http-status-codes";
 import morgan from "morgan";
 import { connectDb } from "./config";
 import { validateTest } from "./middlewares/validation.middleware";
-import { AuthRoute } from "./routes/auth.route";
+import AuthRoute from "./routes/auth.route";
 import JobRoute from "./routes/jobs.route";
 import UserRoute from "./routes/user.route";
 
