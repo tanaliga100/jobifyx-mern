@@ -65,7 +65,7 @@ export const LOGIN = async (
     expires: new Date(Date.now() + oneDay),
     secure: process.env.NODE_ENV === "production",
   });
-  res.status(200).json({ msg: "User Logged In", status: "success" });
+  res.status(200).json({ msg: "User Logged In", status: "success", token });
 };
 
 export const LOGOUT = async (

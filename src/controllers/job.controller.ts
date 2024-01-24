@@ -8,14 +8,8 @@ export const GET_ALL_JOBS = async (
   res: Response,
   next: NextFunction
 ) => {
-  console.log("COOKIE", req);
-
   const allJobs = await Job.find({});
-  if (allJobs.length < 1) {
-    return res.status(200).json({
-      msg: "No Jobs to show",
-    });
-  }
+
   res
     .status(StatusCodes.OK)
     .json({ msg: "JOBS", length: allJobs.length, data: allJobs });

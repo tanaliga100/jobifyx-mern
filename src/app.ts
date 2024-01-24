@@ -1,8 +1,10 @@
+import cookieParser from "cookie-parser";
 import dotenv from "dotenv";
 import express, { Express, NextFunction, Request, Response } from "express";
 import { StatusCodes } from "http-status-codes";
 import morgan from "morgan";
 import { connectDb } from "./config";
+import { authenticateMiddleware } from "./middlewares/authenticate.middleware";
 import { validateTest } from "./middlewares/validation.middleware";
 import AuthRoute from "./routes/auth.route";
 import JobRoute from "./routes/jobs.route";
@@ -17,6 +19,7 @@ const port = process.env.PORT || 8000;
 
 // MIDDLEWARES - TOP
 app.use(express.json());
+app.use(cookieParser());
 app.use(express.urlencoded({ extended: true }));
 if (process.env.NODE_ENV === "development") {
   app.use(morgan("dev"));
@@ -41,7 +44,7 @@ app.post("/:id", validateTest, (req: Request, res: Response) => {
 
 app.use(`/api/v1/auth`, AuthRoute);
 app.use("/api/v1/users", UserRoute);
-app.use("/api/v1/jobs", JobRoute);
+app.use("/api/v1/jobs", authenticateMiddleware, JobRoute);
 
 // MIDDLEWARES - TAIL
 app.use("*", (res: Response) => {

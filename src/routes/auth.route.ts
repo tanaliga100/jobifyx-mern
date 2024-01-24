@@ -9,12 +9,13 @@ import {
   validateLoginInput,
   validateRegisterInput,
 } from "../middlewares/validation.middleware";
+import { clearCookie } from "../utils/tokenUtil";
 
 const AuthRoute = express.Router();
 
 AuthRoute.route("/register").post(validateRegisterInput, REGISTER);
 AuthRoute.route("/login").post(validateLoginInput, LOGIN);
 AuthRoute.route("/forgot-password").post(FORGOT_PASSWORD);
-AuthRoute.route("/").get(LOGOUT);
+AuthRoute.route("/").get(clearCookie, LOGOUT);
 
 export default AuthRoute;
