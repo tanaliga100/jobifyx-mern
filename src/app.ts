@@ -4,11 +4,13 @@ import express, { Express, NextFunction, Request, Response } from "express";
 import { StatusCodes } from "http-status-codes";
 import morgan from "morgan";
 import { connectDb } from "./config";
-import { authenticateMiddleware } from "./middlewares/authenticate.middleware";
+import {
+  authenticateMiddleware,
+  authorizedPermissions,
+} from "./middlewares/authenticate.middleware";
 import { validateTest } from "./middlewares/validation.middleware";
 import AuthRoute from "./routes/auth.route";
 import DashboardRoute from "./routes/dashboard.route";
-import JobRoute from "./routes/jobs.route";
 import UserRoute from "./routes/user.route";
 
 //For env File
@@ -44,9 +46,13 @@ app.post("/:id", validateTest, (req: Request, res: Response) => {
 });
 
 app.use(`/api/v1/auth`, AuthRoute); // done
-app.use("/api/v1/admin", authenticateMiddleware, DashboardRoute);
+app.use(
+  "/api/v1/admin",
+  authenticateMiddleware,
+  authorizedPermissions(["ADMIN", "MODERATOR"]),
+  DashboardRoute
+);
 app.use("/api/v1/users", authenticateMiddleware, UserRoute);
-app.use("/api/v1/jobs", authenticateMiddleware, JobRoute); // done
 
 // MIDDLEWARES - TAIL
 app.use("*", (res: Response) => {

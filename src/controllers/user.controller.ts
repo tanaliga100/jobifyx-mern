@@ -26,7 +26,10 @@ const UPDATE_USER = async (
   next: NextFunction
 ) => {
   // console.log("REQUEST_BODY", req.body, req.user);
-  await User.findByIdAndUpdate(req.user.userId, req.body);
+  const obj = { ...req.body };
+  delete obj.password;
+  delete obj.role;
+  await User.findByIdAndUpdate(req.user.userId, obj);
   res.status(StatusCodes.OK).json({ msg: "User Updated" });
 };
 export { ALL_USERS, CURRENT_USER, UPDATE_USER };

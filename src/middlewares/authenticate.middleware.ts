@@ -1,5 +1,5 @@
 import { NextFunction, Response } from "express";
-import { UnAuthenticatedError } from "../errors/customErrors";
+import { UnAthorizedError, UnAuthenticatedError } from "../errors/customErrors";
 import { AuthenticatedRequest } from "../utils/constants";
 import { verifyJWT } from "../utils/tokenUtils";
 
@@ -30,4 +30,13 @@ export const authenticateMiddleware = async (
   } catch (error) {
     throw new UnAuthenticatedError("Authentication Invalid");
   }
+};
+
+export const authorizedPermissions = (roles: string[]) => {
+  return (req: any, any: Response, next: NextFunction) => {
+    if (!roles.includes(req.user.role)) {
+      throw new UnAthorizedError("Restricted Route");
+    }
+    next();
+  };
 };
