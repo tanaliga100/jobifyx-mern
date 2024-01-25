@@ -1,49 +1,32 @@
 import { NextFunction, Request, Response } from "express";
+import { StatusCodes } from "http-status-codes";
+import User from "../models/user.model";
+import { AuthenticatedRequest } from "../utils/constants";
 
 const ALL_USERS = async (req: Request, res: Response, next: NextFunction) => {
-  try {
-    res.json({ msg: "List of all Users" });
-  } catch (error) {
-    res.json({
-      msg: "Something went wrong",
-    });
-  }
-  next();
-};
-const SINGLE_USER = async (req: Request, res: Response, next: NextFunction) => {
-  try {
-    res.json({ msg: "User" });
-  } catch (error) {
-    res.json({
-      msg: "Something went wrong",
-    });
-  }
-  next();
+  const allUsers = await User.find({}, { password: 0 });
+  res
+    .status(StatusCodes.OK)
+    .json({ msg: "ALL_USERS", length: allUsers.length, allUsers });
 };
 
 const CURRENT_USER = async (
-  req: Request,
+  req: AuthenticatedRequest | any,
   res: Response,
   next: NextFunction
 ) => {
-  try {
-    res.json({ msg: "Current User" });
-  } catch (error) {
-    res.json({
-      msg: "Something went wrong",
-    });
-  }
-  next();
+  const { userId } = req.user;
+  const profile = await User.findOne({ _id: req.user.userId }, { password: 0 });
+  res.status(StatusCodes.OK).json({ msg: "CURRENT_USER", profile });
 };
 
-const UPDATE_USER = async (req: Request, res: Response, next: NextFunction) => {
-  try {
-    res.json({ msg: "User Updated" });
-  } catch (error) {
-    res.json({
-      msg: "Something went wrong",
-    });
-  }
-  next();
+const UPDATE_USER = async (
+  req: AuthenticatedRequest | any,
+  res: Response,
+  next: NextFunction
+) => {
+  // console.log("REQUEST_BODY", req.body, req.user);
+  await User.findByIdAndUpdate(req.user.userId, req.body);
+  res.status(StatusCodes.OK).json({ msg: "User Updated" });
 };
-export { ALL_USERS, CURRENT_USER, SINGLE_USER, UPDATE_USER };
+export { ALL_USERS, CURRENT_USER, UPDATE_USER };

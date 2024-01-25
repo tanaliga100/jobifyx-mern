@@ -1,13 +1,7 @@
-import { NextFunction, Request, Response } from "express";
+import { NextFunction, Response } from "express";
 import { UnAuthenticatedError } from "../errors/customErrors";
+import { AuthenticatedRequest } from "../utils/constants";
 import { verifyJWT } from "../utils/tokenUtils";
-
-export interface AuthenticatedRequest extends Request {
-  user: {
-    userId: string;
-    role: string;
-  };
-}
 
 export const authenticateMiddleware = async (
   req: AuthenticatedRequest | any,
@@ -30,7 +24,7 @@ export const authenticateMiddleware = async (
       throw new UnAuthenticatedError("Authentication Invalid");
     }
     // attach payload
-    req.user = { userId, role };
+    req.user = { userId, role, test: "test" };
 
     next();
   } catch (error) {

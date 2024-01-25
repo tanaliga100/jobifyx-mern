@@ -1,31 +1,30 @@
 import { NextFunction, Request, Response } from "express";
 import "express-async-errors";
 import { StatusCodes } from "http-status-codes";
-import { AuthenticatedRequest } from "../middlewares/authenticate.middleware";
 import { default as Job } from "../models/job.model";
-export interface UserPayload {
-  userId: string;
-  role: string;
-}
+import { AuthenticatedRequest } from "../utils/constants";
 
 export const GET_ALL_JOBS = async (
-  req: AuthenticatedRequest,
+  req: AuthenticatedRequest | any,
   res: Response,
   next: NextFunction
 ) => {
   console.log("TOKEN_PAYLOAD", req.user);
 
-  const allJobs = await Job.find({});
+  const allJobs = await Job.find({ createdBy: req.user.userId });
   res
     .status(StatusCodes.OK)
     .json({ msg: "JOBS", length: allJobs.length, data: allJobs });
 };
 
 export const CREATE_JOB = async (
-  req: Request,
+  req: AuthenticatedRequest | any,
   res: Response,
   next: NextFunction
 ) => {
+  // ATTACHED THE ID OF THE CREATOR
+  const { userId, role } = req.user!;
+  req.body.createdBy = req.user.userId;
   const newJob = await Job.create(req.body);
   res.status(StatusCodes.CREATED).json({ msg: "JOB CREATED", data: newJob });
 };

@@ -27,3 +27,15 @@ export const USER_ROLE = {
   ADMIN: "ADMIN",
   USER: "USER",
 };
+
+export interface AuthenticatedRequest extends Request {
+  user: {
+    userId: string;
+    role: string;
+  };
+}
+
+export interface UserPayload {
+  userId: string;
+  role: string;
+}

@@ -22,7 +22,6 @@ export const REGISTER = async (
 
   res.status(200).json({
     msg: "User Registered, Please Login Now...",
-    data: newUser,
     status: "success",
   });
 };
@@ -40,7 +39,6 @@ export const LOGIN = async (
       `Invalid Credentials || Email doesn't exist`
     );
   }
-
   // COMPARE PASSWORD
   const isPasswordCorrect = await comparePassword(
     req.body.password,

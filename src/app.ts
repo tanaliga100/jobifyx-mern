@@ -7,6 +7,7 @@ import { connectDb } from "./config";
 import { authenticateMiddleware } from "./middlewares/authenticate.middleware";
 import { validateTest } from "./middlewares/validation.middleware";
 import AuthRoute from "./routes/auth.route";
+import DashboardRoute from "./routes/dashboard.route";
 import JobRoute from "./routes/jobs.route";
 import UserRoute from "./routes/user.route";
 
@@ -28,7 +29,7 @@ if (process.env.NODE_ENV === "development") {
 // ROUTES
 app.post("/", validateTest, (req: Request, res: Response) => {
   const { name } = req.body;
-  res.status(200).json({
+  res.status(StatusCodes.OK).json({
     msg: "Server Alive :  Typescript !!!",
     data: name,
   });
@@ -42,9 +43,10 @@ app.post("/:id", validateTest, (req: Request, res: Response) => {
   });
 });
 
-app.use(`/api/v1/auth`, AuthRoute);
+app.use(`/api/v1/auth`, AuthRoute); // done
+app.use("/api/v1/admin", authenticateMiddleware, DashboardRoute);
 app.use("/api/v1/users", authenticateMiddleware, UserRoute);
-app.use("/api/v1/jobs", authenticateMiddleware, JobRoute);
+app.use("/api/v1/jobs", authenticateMiddleware, JobRoute); // done
 
 // MIDDLEWARES - TAIL
 app.use("*", (res: Response) => {
