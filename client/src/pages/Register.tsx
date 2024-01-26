@@ -9,6 +9,7 @@ import { customFetch } from "../utils/custom-fetch";
 interface MyParams {
   id?: string;
 }
+// eslint-disable-next-line react-refresh/only-export-components
 export const actionRegister = async ({
   request,
 }: {
@@ -21,13 +22,18 @@ export const actionRegister = async ({
   try {
     const response = await customFetch.post("/auth/register", data);
     const res = response.data.msg;
-    toast.success(res);
+    toast(res, {
+      icon: "👏 👏 👏",
+    });
     return redirect("/login");
     // eslint-disable-next-line @typescript-eslint/no-explicit-any
   } catch (error: any) {
     const errorMsg = error!.response?.data.msg as string;
     if (errorMsg) {
-      toast.error(errorMsg);
+      toast(errorMsg, {
+        icon: "👎 👎 👎 ",
+        duration: 1000,
+      });
     }
     return null;
   }
@@ -112,7 +118,7 @@ const Register = () => {
               name="password"
               label="Password"
               placeholder="Enter your Password"
-              defaultValue="123456"
+              defaultValue="secret"
             />
           </Grid>
 

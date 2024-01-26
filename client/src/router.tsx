@@ -1,12 +1,12 @@
 import { createBrowserRouter } from "react-router-dom";
-import DashboardLayout from "./layout/DashboardLayout";
+import DashboardLayout, { dashboardLoaders } from "./layout/DashboardLayout";
 import HomeLayout from "./layout/HomeLayout";
 import AddJob from "./pages/AddJob";
 import Admin from "./pages/Admin";
 import AllJobs from "./pages/AllJobs";
 import Error from "./pages/Error";
 import Landing from "./pages/Landing";
-import Login from "./pages/Login";
+import Login, { actionLogin } from "./pages/Login";
 import Profile from "./pages/Profile";
 import Register, { actionRegister } from "./pages/Register";
 import Stats from "./pages/Stats";
@@ -30,10 +30,12 @@ export const router = createBrowserRouter([
       {
         path: "login",
         element: <Login />,
+        action: actionLogin,
       },
       {
         path: "dashboard",
         element: <DashboardLayout />,
+        loader: dashboardLoaders,
         children: [
           {
             index: true,

@@ -5,8 +5,8 @@ import { ILinks, Links } from "../constants";
 
 const Sidebar = () => {
   return (
-    <Grid container direction="column" gap={20} justifyContent="center">
-      <Grid item xs={10}>
+    <Grid container direction="column" gap={10} justifyContent="center">
+      <Grid item xs={8}>
         {Links.map(({ href, label, icon }: ILinks) => (
           <NavLink
             end
@@ -21,7 +21,7 @@ const Sidebar = () => {
           </NavLink>
         ))}
       </Grid>
-      <Grid item xs={2}>
+      <Grid item xs={4}>
         <Logout />
       </Grid>
     </Grid>

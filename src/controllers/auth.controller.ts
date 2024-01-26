@@ -1,5 +1,6 @@
 import { NextFunction, Request, Response } from "express";
 import "express-async-errors";
+import { StatusCodes } from "http-status-codes";
 import { UnAuthenticatedError } from "../errors/customErrors";
 import User from "../models/user.model";
 import { comparePassword, hashedPassword } from "../utils/hashedPassword";
@@ -20,7 +21,7 @@ export const REGISTER = async (
   // PERSIST DATA
   const newUser = await User.create(req.body);
 
-  res.status(200).json({
+  res.status(StatusCodes.OK).json({
     msg: "User Registered, Please Login Now...",
     status: "success",
   });
@@ -63,7 +64,7 @@ export const LOGIN = async (
     expires: new Date(Date.now() + oneDay),
     secure: process.env.NODE_ENV === "production",
   });
-  res.status(200).json({ msg: "User Logged In", status: "success" });
+  res.status(StatusCodes.OK).json({ msg: "User Logged In", status: "success" });
 };
 
 export const LOGOUT = async (
@@ -72,7 +73,7 @@ export const LOGOUT = async (
   next: NextFunction
 ) => {
   res.clearCookie("token");
-  res.status(200).json({ msg: "Logged Out!" });
+  res.status(StatusCodes.OK).json({ msg: "Logged Out!" });
 };
 
 export const FORGOT_PASSWORD = async (
