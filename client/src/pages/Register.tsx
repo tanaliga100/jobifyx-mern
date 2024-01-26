@@ -1,10 +1,42 @@
 import { Button, Container, Grid, Typography } from "@mui/material";
+import toast from "react-hot-toast";
 import { MdAlternateEmail } from "react-icons/md";
 import { TbPasswordUser } from "react-icons/tb";
-import { Link } from "react-router-dom";
+import { Form, Link, redirect, useNavigation } from "react-router-dom";
 import FormRow from "../components/FormRow";
 import Header from "../components/Header";
+import { customFetch } from "../utils/custom-fetch";
+interface MyParams {
+  id?: string;
+}
+export const actionRegister = async ({
+  request,
+}: {
+  request?: Request;
+  params?: MyParams;
+}) => {
+  const formData = await request?.formData();
+  const data = Object.fromEntries(formData!);
+  // sumit request here..
+  try {
+    const response = await customFetch.post("/auth/register", data);
+    const res = response.data.msg;
+    toast.success(res);
+    return redirect("/login");
+    // eslint-disable-next-line @typescript-eslint/no-explicit-any
+  } catch (error: any) {
+    const errorMsg = error!.response?.data.msg as string;
+    if (errorMsg) {
+      toast.error(errorMsg);
+    }
+    return null;
+  }
+};
+
 const Register = () => {
+  const navigation = useNavigation();
+  const isSubmitting = navigation.state === "submitting";
+
   return (
     <Container
       sx={{
@@ -14,7 +46,7 @@ const Register = () => {
         placeItems: "center",
       }}
     >
-      <form action="">
+      <Form method="post">
         <Grid container direction="column" spacing={3} sx={{ py: 3 }}>
           <Grid item justifyContent="center" alignItems="center">
             <Header
@@ -34,7 +66,7 @@ const Register = () => {
             <MdAlternateEmail size={20} />
             <FormRow
               type="text"
-              name="firtName"
+              name="firstName"
               label="First Name"
               placeholder="Enter your First Name"
               defaultValue="Jordan"
@@ -54,20 +86,7 @@ const Register = () => {
               defaultValue="Tanaliga"
             />
           </Grid>
-          <Grid
-            item
-            xs={3}
-            sx={{ display: "flex", alignItems: "center", gap: 1 }}
-          >
-            <TbPasswordUser size={20} />
-            <FormRow
-              type="text"
-              name="location"
-              label="Location"
-              placeholder="Enter your Location"
-              defaultValue="Philippines"
-            />
-          </Grid>
+
           <Grid
             item
             xs={3}
@@ -102,8 +121,14 @@ const Register = () => {
             xs={3}
             sx={{ display: "flex", alignItems: "center", gap: 1 }}
           >
-            <Button variant="contained" type="submit" size="small" fullWidth>
-              Submit
+            <Button
+              variant="contained"
+              type="submit"
+              size="small"
+              fullWidth
+              disabled={isSubmitting}
+            >
+              {isSubmitting ? "Submitting" : "Submit"}
             </Button>
           </Grid>
         </Grid>
@@ -116,7 +141,7 @@ const Register = () => {
             </Typography>
           </Link>
         </Typography>
-      </form>
+      </Form>
     </Container>
   );
 };

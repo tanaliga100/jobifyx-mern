@@ -20,6 +20,7 @@ const FormRow = ({ type, label, placeholder, name, defaultValue }: IInputs) => {
       id="outlined-basic"
       size="small"
       variant="outlined"
+      required
     />
   );
 };

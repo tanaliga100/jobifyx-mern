@@ -82,12 +82,18 @@ app.use("*", (req: Request, res: Response, next: NextFunction) => {
 });
 
 // ERROR MIDDLEWARE
-app.use((err: any, req: Request, res: Response, next: NextFunction) => {
+app.use((err: any | Error, req: Request, res: Response, next: NextFunction) => {
   console.log("FROM_MIDDLEWARE", err.message);
   const statusCode = err.statusCode || StatusCodes.INTERNAL_SERVER_ERROR;
   const msg = err.message || "Something went wrong";
-  res.status(statusCode).json({
-    FROM_MIDDLEWARE: msg,
+
+  if (statusCode || msg) {
+    return res.status(statusCode).json({
+      msg,
+    });
+  }
+  return res.status(StatusCodes.INTERNAL_SERVER_ERROR).json({
+    msg,
   });
 });
 

@@ -8,7 +8,7 @@ import Error from "./pages/Error";
 import Landing from "./pages/Landing";
 import Login from "./pages/Login";
 import Profile from "./pages/Profile";
-import Register from "./pages/Register";
+import Register, { actionRegister } from "./pages/Register";
 import Stats from "./pages/Stats";
 
 export const router = createBrowserRouter([
@@ -24,7 +24,9 @@ export const router = createBrowserRouter([
       {
         path: "register",
         element: <Register />,
+        action: actionRegister,
       },
+
       {
         path: "login",
         element: <Login />,

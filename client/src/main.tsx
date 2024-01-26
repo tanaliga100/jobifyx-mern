@@ -12,17 +12,5 @@ ReactDOM.createRoot(document.getElementById("root")!).render(
     </Providers>
   </React.StrictMode>
 );
-
-fetch("/api/v1/test")
-  .then((res) => {
-    return res.json();
-  })
-  .then((data) => {
-    console.log("DATA", data);
-  })
-  .catch((err) => {
-    console.log("ERROR", err);
-  });
-
 const data = await customFetch.get("/test");
-console.log("DATA_AXIOS", data);
+console.log("TEST_ROUTE", data.data);
