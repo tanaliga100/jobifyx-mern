@@ -6,7 +6,9 @@
   "scripts": {
     "build": "npx tsc -w",
     "start": "nodemon dist/app.js",
-    "dev": "concurrently \"npm run build\" \"npm run start\""
+    "server": "concurrently \"npm run build\" \"npm run start\"",
+    "client": "cd client && npm run dev",
+    "dev": "concurrently --kill-others-on-fail \"npm run client\" \"npm run server\"  "
   },
   "keywords": [],
   "author": "jordantanaliga100",

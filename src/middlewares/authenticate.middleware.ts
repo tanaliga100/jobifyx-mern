@@ -35,7 +35,7 @@ export const authenticateMiddleware = async (
 export const authorizedPermissions = (roles: string[]) => {
   return (req: any, any: Response, next: NextFunction) => {
     if (!roles.includes(req.user.role)) {
-      throw new UnAthorizedError("Restricted Route");
+      throw new UnAthorizedError("Restricted Route || ADMIN ONLY");
     }
     next();
   };

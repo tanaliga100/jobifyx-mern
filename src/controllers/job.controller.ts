@@ -53,7 +53,7 @@ export const GET_JOB = async (
   //     .json({ error: "Something went wrongs " });
   // }
   const job = await Job.findById(req.params.id);
-  return res.status(StatusCodes.OK).json({ msg: "Single Job", job });
+  res.status(StatusCodes.OK).json({ msg: "Single Job", job });
 };
 
 export const EDIT_JOB = async (
