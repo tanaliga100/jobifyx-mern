@@ -12,7 +12,6 @@ import { customFetch } from "../utils/custom-fetch";
 export const actionLogin = async ({ request }: { request?: Request }) => {
   const formData = await request!.formData();
   const data = Object.fromEntries(formData);
-
   // submission here...
   try {
     const response: AxiosResponse<{ msg: string }> = await customFetch.post(
