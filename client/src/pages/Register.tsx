@@ -8,6 +8,8 @@ import Header from "../components/Header";
 import { customFetch } from "../utils/custom-fetch";
 interface MyParams {
   id?: string;
+  name?: string;
+  date?: Date;
 }
 // eslint-disable-next-line react-refresh/only-export-components
 export const actionRegister = async ({
