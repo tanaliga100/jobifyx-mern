@@ -7,10 +7,44 @@ import {
   Select,
 } from "@mui/material";
 import { useState } from "react";
-import { Form, useNavigation, useOutletContext } from "react-router-dom";
+import toast from "react-hot-toast";
+import {
+  Form,
+  redirect,
+  useNavigation,
+  useOutletContext,
+} from "react-router-dom";
 import { JOB_STATUS, JOB_TYPE } from "../../../src/utils/constants";
 import FormRow from "../components/FormRow";
 import Header from "../components/Header";
+import { customFetch } from "../utils/custom-fetch";
+
+export const addJobAction = async ({ request }: { request: Request }) => {
+  const formData = await request.formData();
+  const jobData = Object.fromEntries(formData);
+  console.log("data", jobData);
+  // submission here...
+  try {
+    const response = await customFetch.post("/jobs", jobData);
+    // eslint-disable-next-line @typescript-eslint/no-unused-vars
+    const { data, msg } = await response.data;
+    toast(msg, {
+      icon: "👏 👏 👏",
+      duration: 2000,
+    });
+    return redirect("/dashboard");
+    // eslint-disable-next-line @typescript-eslint/no-explicit-any
+  } catch (error: any) {
+    const errorMsg = error!.response?.data.msg as string;
+    if (errorMsg) {
+      toast(errorMsg, {
+        icon: "👎 👎 👎 ",
+        duration: 2000,
+      });
+    }
+    return null;
+  }
+};
 
 const AddJob = () => {
   const [type, setType] = useState("");

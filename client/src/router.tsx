@@ -3,9 +3,9 @@ import toast from "react-hot-toast";
 import { createBrowserRouter, redirect } from "react-router-dom";
 import DashboardLayout, { dashboardLoaders } from "./layout/DashboardLayout";
 import HomeLayout from "./layout/HomeLayout";
-import AddJob from "./pages/AddJob";
+import AddJob, { addJobAction } from "./pages/AddJob";
 import Admin from "./pages/Admin";
-import AllJobs from "./pages/AllJobs";
+import AllJobs, { allJobsLoader } from "./pages/AllJobs";
 import Error from "./pages/Error";
 import Landing from "./pages/Landing";
 import Login from "./pages/Login";
@@ -95,36 +95,12 @@ export const router = createBrowserRouter([
           {
             path: "add-job",
             element: <AddJob />,
-            action: async ({ request }: { request: Request }) => {
-              const formData = await request.formData();
-              const jobData = Object.fromEntries(formData);
-              console.log("data", jobData);
-              // submission here...
-              try {
-                const response = await customFetch.post("/jobs", jobData);
-                // eslint-disable-next-line @typescript-eslint/no-unused-vars
-                const { data, msg } = await response.data;
-                toast(msg, {
-                  icon: "👏 👏 👏",
-                  duration: 2000,
-                });
-                return redirect("/dashboard");
-                // eslint-disable-next-line @typescript-eslint/no-explicit-any
-              } catch (error: any) {
-                const errorMsg = error!.response?.data.msg as string;
-                if (errorMsg) {
-                  toast(errorMsg, {
-                    icon: "👎 👎 👎 ",
-                    duration: 2000,
-                  });
-                }
-                return null;
-              }
-            },
+            action: addJobAction,
           },
           {
             path: "all-jobs",
             element: <AllJobs />,
+            loader: allJobsLoader,
           },
           {
             path: "profile",

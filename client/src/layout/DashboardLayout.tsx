@@ -80,13 +80,13 @@ const DashboardLayout = () => {
           </Container>
           <Container
             maxWidth="xl"
-            sx={{ display: "flex", height: "80dvh", pt: 3, gap: 3 }}
+            sx={{ display: "flex", height: "80dvh", pt: 3 }}
           >
-            <Grid item xs={2}>
+            <Grid item xs={1.5}>
               {/* LEFT SIDE  */}
               <Sidebar />
             </Grid>
-            <Grid item xs={10}>
+            <Grid item xs={10.5}>
               {/* RIGHT SIDE  */}
               <Outlet context={{ user }} />
             </Grid>

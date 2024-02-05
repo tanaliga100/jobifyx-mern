@@ -1,19 +1,16 @@
 import { Box } from "@mui/material";
 import { Link } from "react-router-dom";
+import { useDashboardContext } from "../layout/DashboardLayout";
 
 const Logo = () => {
+  const user = useDashboardContext();
+  console.log("LOGO", user);
+
   return (
     <Box sx={{ py: 2 }} fontSize={30} fontWeight={900}>
-      <Link to="/">Jobifyx</Link>
+      <Link to={`${user ? "/dashboard" : "/"}`}>Jobifyx</Link>
     </Box>
   );
 };
 
 export default Logo;
-
-//  {
-//    routes.pathname === "/dashboard" ||
-//      (routes.pathname === "/dashboard/*" && (
-//        <Stack color="red">Nav Buttons</Stack>
-//      ));
-//  }
