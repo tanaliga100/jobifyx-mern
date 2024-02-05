@@ -1,45 +1,43 @@
 import { Button, Container, Grid, Typography } from "@mui/material";
-import toast from "react-hot-toast";
 import { MdAlternateEmail } from "react-icons/md";
 import { TbPasswordUser } from "react-icons/tb";
-import { Form, Link, redirect, useNavigation } from "react-router-dom";
+import { Form, Link, useNavigation } from "react-router-dom";
 import FormRow from "../components/FormRow";
 import Header from "../components/Header";
-import { customFetch } from "../utils/custom-fetch";
-interface MyParams {
+export interface MyParams {
   id?: string;
   name?: string;
   date?: Date;
 }
 // eslint-disable-next-line react-refresh/only-export-components
-export const actionRegister = async ({
-  request,
-}: {
-  request?: Request;
-  params?: MyParams;
-}) => {
-  const formData = await request?.formData();
-  const data = Object.fromEntries(formData!);
-  // sumit request here..
-  try {
-    const response = await customFetch.post("/auth/register", data);
-    const res = response.data.msg;
-    toast(res, {
-      icon: "👏 👏 👏",
-    });
-    return redirect("/login");
-    // eslint-disable-next-line @typescript-eslint/no-explicit-any
-  } catch (error: any) {
-    const errorMsg = error!.response?.data.msg as string;
-    if (errorMsg) {
-      toast(errorMsg, {
-        icon: "👎 👎 👎 ",
-        duration: 1000,
-      });
-    }
-    return null;
-  }
-};
+// export const actionRegister = async ({
+//   request,
+// }: {
+//   request?: Request;
+//   params?: MyParams;
+// }) => {
+//   const formData = await request?.formData();
+//   const data = Object.fromEntries(formData!);
+//   // sumit request here..
+//   try {
+//     const response = await customFetch.post("/auth/register", data);
+//     const res = response.data.msg;
+//     toast(res, {
+//       icon: "👏 👏 👏",
+//     });
+//     return redirect("/login");
+//     // eslint-disable-next-line @typescript-eslint/no-explicit-any
+//   } catch (error: any) {
+//     const errorMsg = error!.response?.data.msg as string;
+//     if (errorMsg) {
+//       toast(errorMsg, {
+//         icon: "👎 👎 👎 ",
+//         duration: 1000,
+//       });
+//     }
+//     return null;
+//   }
+// };
 
 const Register = () => {
   const navigation = useNavigation();

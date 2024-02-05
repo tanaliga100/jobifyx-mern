@@ -1,43 +1,53 @@
 import { Button, Container, Grid, TextField, Typography } from "@mui/material";
-import { AxiosResponse } from "axios";
-import toast from "react-hot-toast";
 import { MdAlternateEmail } from "react-icons/md";
 import { TbPasswordUser } from "react-icons/tb";
-import { Form, Link, redirect, useNavigation } from "react-router-dom";
+import { Form, Link, useActionData, useNavigation } from "react-router-dom";
 import FormRow from "../components/FormRow";
 import Header from "../components/Header";
-import { customFetch } from "../utils/custom-fetch";
 
 // eslint-disable-next-line react-refresh/only-export-components
-export const actionLogin = async ({ request }: { request?: Request }) => {
-  const formData = await request!.formData();
-  const data = Object.fromEntries(formData);
-  // submission here...
-  try {
-    const response: AxiosResponse<{ msg: string }> = await customFetch.post(
-      "/auth/login",
-      data
-    );
-    const res = response.data.msg;
-    toast(res, {
-      icon: "👏 👏 👏",
-      duration: 1000,
-    });
+// export const actionLogin = async ({ request }: { request?: Request }) => {
+//   const formData = await request!.formData();
+//   const data = Object.fromEntries(formData);
 
-    return redirect("/dashboard");
-    // eslint-disable-next-line @typescript-eslint/no-explicit-any
-  } catch (error: any) {
-    const errorMsg = error!.response?.data.msg as string;
-    if (errorMsg) {
-      toast.error(errorMsg);
-    }
-    return null;
-  }
-};
+//   const errors: Err = { msg: "" };
+//   if (typeof data.password === "string" && data.password.length < 3) {
+//     errors.msg = "Password too short";
+//     toast.error(errors.msg);
+//   }
+//   // submission here...
+//   try {
+//     const response: AxiosResponse<{ msg: string }> = await customFetch.post(
+//       "/auth/login",
+//       data
+//     );
+//     const res = response.data.msg;
+//     toast(res, {
+//       icon: "👏 👏 👏",
+//       duration: 1000,
+//     });
+
+//     return redirect("/dashboard");
+//     // eslint-disable-next-line @typescript-eslint/no-explicit-any
+//   } catch (error: any) {
+//     const errorMsg = error!.response?.data.msg as string;
+//     if (errorMsg) {
+//       toast.error(errorMsg);
+//     }
+//     return null;
+//   }
+// };
+
+interface Err {
+  msg?: string;
+}
 
 const Login = () => {
   const navigation = useNavigation();
   const isSubmitting = navigation.state === "submitting";
+  const errors = useActionData() as Err;
+  console.log("errors", errors);
+
   return (
     <Container
       fixed
@@ -131,6 +141,7 @@ const Login = () => {
           </Link>
         </Typography>
       </Form>
+      {errors?.msg && <p color="red">{errors.msg}</p>}
     </Container>
   );
 };
