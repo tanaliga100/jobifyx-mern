@@ -62,7 +62,6 @@ export const router = createBrowserRouter([
         action: async ({ request }: { request: Request }) => {
           const formData = await request!.formData();
           const data = Object.fromEntries(formData);
-          console.log("data");
 
           // submission here...
           try {
@@ -71,7 +70,7 @@ export const router = createBrowserRouter([
             const res = response.data.msg;
             toast(res, {
               icon: "👏 👏 👏",
-              duration: 1000,
+              duration: 2000,
             });
             return redirect("/dashboard");
             // eslint-disable-next-line @typescript-eslint/no-explicit-any
@@ -96,6 +95,32 @@ export const router = createBrowserRouter([
           {
             path: "add-job",
             element: <AddJob />,
+            action: async ({ request }: { request: Request }) => {
+              const formData = await request.formData();
+              const jobData = Object.fromEntries(formData);
+              console.log("data", jobData);
+              // submission here...
+              try {
+                const response = await customFetch.post("/jobs", jobData);
+                // eslint-disable-next-line @typescript-eslint/no-unused-vars
+                const { data, msg } = await response.data;
+                toast(msg, {
+                  icon: "👏 👏 👏",
+                  duration: 2000,
+                });
+                return redirect("/dashboard");
+                // eslint-disable-next-line @typescript-eslint/no-explicit-any
+              } catch (error: any) {
+                const errorMsg = error!.response?.data.msg as string;
+                if (errorMsg) {
+                  toast(errorMsg, {
+                    icon: "👎 👎 👎 ",
+                    duration: 2000,
+                  });
+                }
+                return null;
+              }
+            },
           },
           {
             path: "all-jobs",

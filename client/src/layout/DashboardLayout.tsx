@@ -2,7 +2,6 @@ import { Box, Container, Grid } from "@mui/material";
 import { createContext, useContext, useState } from "react";
 import toast from "react-hot-toast";
 import { Outlet, redirect, useLoaderData, useNavigate } from "react-router-dom";
-import Header from "../components/Header";
 import Logo from "../pages/Logo";
 import Sidebar from "../pages/Sidebar";
 import { customFetch } from "../utils/custom-fetch";
@@ -11,7 +10,6 @@ import { customFetch } from "../utils/custom-fetch";
 export const dashboardLoaders = async () => {
   try {
     const { data } = await customFetch.get("/users/current-user");
-
     return data;
   } catch (error) {
     return redirect("/");
@@ -90,13 +88,6 @@ const DashboardLayout = () => {
             </Grid>
             <Grid item xs={10}>
               {/* RIGHT SIDE  */}
-              <Header
-                title="Title"
-                subtitle="
-          Lorem ipsum dolor sit amet consectetur adipisicing elit. Impedit, ad.
-          
-          "
-              />
               <Outlet context={{ user }} />
             </Grid>
           </Container>

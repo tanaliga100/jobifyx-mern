@@ -9,6 +9,7 @@ export interface MyParams {
   name?: string;
   date?: Date;
 }
+
 // eslint-disable-next-line react-refresh/only-export-components
 // export const actionRegister = async ({
 //   request,
