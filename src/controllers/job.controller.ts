@@ -14,7 +14,7 @@ export const GET_ALL_JOBS = async (
   const allJobs = await Job.find({ createdBy: req.user.userId });
   res
     .status(StatusCodes.OK)
-    .json({ msg: "JOBS", length: allJobs.length, data: allJobs });
+    .json({ msg: "JOBS", length: allJobs.length, jobs: allJobs });
 };
 
 export const CREATE_JOB = async (
@@ -26,7 +26,7 @@ export const CREATE_JOB = async (
   const { userId, role } = req.user!;
   req.body.createdBy = req.user.userId;
   const newJob = await Job.create(req.body);
-  res.status(StatusCodes.CREATED).json({ msg: "JOB CREATED", data: newJob });
+  res.status(StatusCodes.CREATED).json({ msg: "JOB CREATED", job: newJob });
 };
 
 export const GET_JOB = async (
@@ -64,7 +64,7 @@ export const EDIT_JOB = async (
   const job = await Job.findByIdAndUpdate(req.params.id, req.body, {
     new: true,
   });
-  res.status(StatusCodes.OK).json({ msg: "JOB MODIFIED", data: job });
+  res.status(StatusCodes.OK).json({ msg: "JOB MODIFIED", job: job });
 };
 
 export const DELETE_JOB = async (
@@ -73,5 +73,5 @@ export const DELETE_JOB = async (
   next: NextFunction
 ) => {
   const removedJob = await Job.findByIdAndDelete(req.params.id);
-  res.status(StatusCodes.OK).json({ msg: "JOB DELETED", data: removedJob });
+  res.status(StatusCodes.OK).json({ msg: "JOB DELETED", job: removedJob });
 };
