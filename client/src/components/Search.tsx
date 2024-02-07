@@ -1,14 +1,22 @@
-import { TextField } from "@mui/material";
+import { Box, TextField } from "@mui/material";
 
-const Search = () => {
+const SearchContainer = () => {
   return (
-    <TextField
-      id="outlined-basic"
-      size="small"
-      placeholder="Search for the jobs"
-      variant="outlined"
-    />
+    <Box sx={{ display: "flex", gap: 3 }}>
+      <TextField
+        id="outlined-basic"
+        size="small"
+        placeholder="Search for the jobs"
+        variant="standard"
+      />
+      <TextField
+        id="outlined-basic"
+        size="small"
+        placeholder="Search for the jobs"
+        variant="standard"
+      />
+    </Box>
   );
 };
 
-export default Search;
+export default SearchContainer;

@@ -1,11 +1,11 @@
 import DynamicFormIcon from "@mui/icons-material/DynamicForm";
-import { Badge, Box } from "@mui/material";
+import { Badge, Box, Paper } from "@mui/material";
 import { createContext, useContext } from "react";
 import toast from "react-hot-toast";
 import { redirect, useLoaderData } from "react-router-dom";
 import Header from "../components/Header";
-import Jobs from "../components/Jobs";
-import Search from "../components/Search";
+import JobsContainer from "../components/Jobs";
+import SearchContainer from "../components/Search";
 import { customFetch } from "../utils/custom-fetch";
 
 export const allJobsLoader = async () => {
@@ -44,10 +44,14 @@ const AllJobs = () => {
         >
           <DynamicFormIcon color="action" sx={{ color: "red" }} />
         </Badge>
-        <Search />
       </Box>
-      <Box>
-        <Jobs />
+      <Box sx={{ display: "flex", flexDirection: "column", gap: 2 }}>
+        {/* SEARCH CONTAINER  */}
+        <Paper elevation={1} sx={{ pb: 1 }}>
+          <SearchContainer />
+        </Paper>
+        {/* JOBS CONTAINER  */}
+        <JobsContainer />
       </Box>
     </AllJobsContext.Provider>
   );

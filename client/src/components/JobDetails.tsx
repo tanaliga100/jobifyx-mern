@@ -12,37 +12,29 @@ interface IProps {
   _id: string;
 }
 
-const columns: GridColDef[] = [
-  { field: "id", headerName: "ID", width: 70 },
-  { field: "firstName", headerName: "COMPANY", width: 130 },
-  { field: "lastName", headerName: "JOB LOCATION ", width: 130 },
-  { field: "lastName", headerName: "JOB POSITION ", width: 130 },
-
-  {
-    field: "age",
-    headerName: "CREATED BY",
-    type: "number",
-    width: 90,
-  },
-];
-
-const rows = [{ id: 1, lastName: "Snow", firstName: "Jon", age: 35 }];
-
 export default function JobDetails(jobs: IProps | any) {
   console.log("details", jobs);
-
   return (
-    <DataGrid
-      rows={rows}
-      columns={columns}
-      initialState={{
-        pagination: {
-          paginationModel: { page: 0, pageSize: 5 },
-        },
-      }}
-      pageSizeOptions={[5, 10]}
-    />
+    <Box sx={{ height: "auto", overflowY: "auto" }}>
+      <Typography variant="caption">{jobs._id} </Typography>
+    </Box>
   );
 }
 
-import { DataGrid, GridColDef } from "@mui/x-data-grid";
+import { Box, Typography } from "@mui/material";
+
+// const columns: GridColDef[] = [
+//   { field: "id", headerName: "ID", width: 70 },
+//   { field: "firstName", headerName: "COMPANY", width: 130 },
+//   { field: "lastName", headerName: "JOB LOCATION ", width: 130 },
+//   { field: "lastName", headerName: "JOB POSITION ", width: 130 },
+
+//   {
+//     field: "age",
+//     headerName: "CREATED BY",
+//     type: "number",
+//     width: 90,
+//   },
+// ];
+
+// const rows = [{ id: 1, lastName: "Snow", firstName: "Jon", age: 35 }];

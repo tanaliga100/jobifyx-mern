@@ -18,18 +18,16 @@ interface IJob {
 }
 
 const columns: GridColDef[] = [
-  { field: "id", headerName: "ID", width: 100 },
+  { field: "createdBy", headerName: "CREATED BY", width: 300 },
   { field: "company", headerName: "COMPANY", width: 130 },
   { field: "jobLocation", headerName: "JOB LOCATION ", width: 200 },
   { field: "position", headerName: "JOB POSITION ", width: 150 },
   { field: "jobStatus", headerName: "JOB STATUS", width: 100 },
-  { field: "createdAt", headerName: "CREATED AT", width: 200 },
-  { field: "createdBy", headerName: "CREATED BY", width: 200 },
 ];
 
-// const rows = [{ id: 1, lastName: "Snow", firstName: "Jon", age: 35 }];
+const rows = [{ id: 1, lastName: "Snow", firstName: "Jon", age: 35 }];
 
-export default function Jobs() {
+export default function JobsContainer() {
   const data = useAllJobsContext();
   const { jobs, length } = data as IJobs;
   console.log("CONTEXT_JOBS", jobs);
@@ -43,7 +41,6 @@ export default function Jobs() {
       jobLocation: job.jobLocation,
       position: job.position,
       jobStatus: job.jobStatus,
-      createdAt: job.createdAt,
       createdBy: job.createdBy,
     }));
     setGridRows(transformedRows);
@@ -57,11 +54,11 @@ export default function Jobs() {
     );
   }
   return (
-    <Box sx={{ height: 450, width: "100%" }}>
-      {/* {jobs.map((job: { _id: string | any } | any | unknown) => {
-        return <JobDetails key={job._id} {...jobs} />;
+    <Box sx={{ height: 400, width: "100%" }}>
+      {/* {jobs.map((job: any | unknown) => {
+        return <JobDetails key={job._id} {...job} />;
       })} */}
-      <DataGrid rows={gridRows} columns={columns} checkboxSelection />
+      <DataGrid rows={gridRows} columns={columns} />
     </Box>
   );
 }
