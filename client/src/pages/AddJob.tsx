@@ -1,3 +1,5 @@
+import AddToPhotosIcon from "@mui/icons-material/AddToPhotos";
+import BorderAllIcon from "@mui/icons-material/BorderAll";
 import {
   Box,
   Button,
@@ -10,6 +12,7 @@ import { useState } from "react";
 import toast from "react-hot-toast";
 import {
   Form,
+  Link,
   redirect,
   useNavigation,
   useOutletContext,
@@ -19,6 +22,7 @@ import FormRow from "../components/FormRow";
 import Header from "../components/Header";
 import { customFetch } from "../utils/custom-fetch";
 
+// eslint-disable-next-line react-refresh/only-export-components
 export const addJobAction = async ({ request }: { request: Request }) => {
   const formData = await request.formData();
   const jobData = Object.fromEntries(formData);
@@ -27,8 +31,8 @@ export const addJobAction = async ({ request }: { request: Request }) => {
   try {
     const response = await customFetch.post("/jobs", jobData);
     // eslint-disable-next-line @typescript-eslint/no-unused-vars
-    const { data, msg } = await response.data;
-    toast(msg, {
+    const { msg } = await response.data;
+    toast.success(msg, {
       icon: "👏 👏 👏",
       duration: 2000,
     });
@@ -37,8 +41,7 @@ export const addJobAction = async ({ request }: { request: Request }) => {
   } catch (error: any) {
     const errorMsg = error!.response?.data.msg as string;
     if (errorMsg) {
-      toast(errorMsg, {
-        icon: "👎 👎 👎 ",
+      toast.error(errorMsg, {
         duration: 2000,
       });
     }
@@ -58,7 +61,12 @@ const AddJob = () => {
 
   return (
     <Form method="post">
-      <Header title="Add Job" subtitle="You can add job here.." />
+      <Box sx={{ display: "flex", flex: 1, gap: 3 }}>
+        <Header title="Add Job" subtitle="You can add job here.." />
+        <Button color="error" size="small" startIcon={<BorderAllIcon />}>
+          <Link to="/dashboard/all-jobs">All Jobs</Link>
+        </Button>
+      </Box>
       <Box
         sx={{
           "& .MuiTextField-root": { mr: 2, my: 2, width: "25ch" },
@@ -69,21 +77,18 @@ const AddJob = () => {
           name="company"
           label="Company Name"
           placeholder="Enter company..."
-          defaultValue="Google"
         />
         <FormRow
           type="text"
           name="position"
           label="Position Name"
           placeholder="Enter position..."
-          defaultValue="Developer"
         />{" "}
         <FormRow
           type="text"
           name="jobLocation"
           label="Job Location Name"
           placeholder="Enter job location..."
-          defaultValue="Manila, Philippines"
         />{" "}
         <Box
           sx={{
@@ -94,7 +99,7 @@ const AddJob = () => {
           }}
         >
           <FormControl sx={{ m: 0, minWidth: 200 }} size="small">
-            <InputLabel id="demo-simple-select-autowidth-label">
+            <InputLabel id="demo-simple-select-autowidth-label" color="success">
               Job Type
             </InputLabel>
             <Select
@@ -103,9 +108,9 @@ const AddJob = () => {
               value={type}
               onChange={(e) => setType(e.target.value)}
               autoWidth
-              defaultValue="pending"
               name="jobType"
               label="Job Type"
+              color="success"
             >
               {Object.values(JOB_TYPE).map(
                 (
@@ -120,7 +125,7 @@ const AddJob = () => {
             </Select>
           </FormControl>
           <FormControl sx={{ m: 0, minWidth: 200 }} size="small">
-            <InputLabel id="demo-simple-select-autowidth-label">
+            <InputLabel id="demo-simple-select-autowidth-label" color="success">
               Job Status
             </InputLabel>
             <Select
@@ -132,6 +137,7 @@ const AddJob = () => {
               name="jobStatus"
               defaultValue="pending"
               label="Job Status"
+              color="success"
             >
               {Object.values(JOB_STATUS).map(
                 (
@@ -147,11 +153,18 @@ const AddJob = () => {
           </FormControl>
         </Box>
         <Button
+          endIcon={<AddToPhotosIcon sx={{ color: "white" }} />}
           type="submit"
-          variant="contained"
-          color="inherit"
+          variant="outlined"
           size="large"
-          sx={{ fontSize: ".8rem", fontWeight: 700, my: 5 }}
+          color="inherit"
+          sx={{
+            fontSize: ".8rem",
+            fontWeight: 700,
+            my: 5,
+            color: "teal",
+            bgColor: "inherit",
+          }}
           disabled={isSubmitting}
         >
           {isSubmitting ? "Submitting" : "Add Job"}

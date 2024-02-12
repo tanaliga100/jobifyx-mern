@@ -5,10 +5,10 @@ interface IInputs {
   type: string;
   label: string;
   placeholder: string;
-  defaultValue: string | number;
+  defaultValue?: string | number;
 }
 
-const FormRow = ({ type, label, placeholder, name, defaultValue }: IInputs) => {
+const FormRow = ({ type, label, placeholder, name }: IInputs) => {
   return (
     <TextField
       fullWidth
@@ -16,11 +16,12 @@ const FormRow = ({ type, label, placeholder, name, defaultValue }: IInputs) => {
       name={name}
       label={label}
       placeholder={placeholder}
-      defaultValue={defaultValue}
       id="outlined-basic"
       size="small"
       variant="outlined"
       required
+      color="success"
+      sx={{ fontWeight: "900" }}
     />
   );
 };

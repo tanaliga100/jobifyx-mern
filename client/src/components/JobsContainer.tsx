@@ -48,10 +48,11 @@ export default function JobsContainer() {
   if (length === 0) {
     return (
       <Box>
-        <Typography variant="h2">No Jobs to show...</Typography>
+        <Typography variant="overline">No Jobs to show...</Typography>
       </Box>
     );
   }
+
   return (
     <Box
       sx={{
@@ -60,7 +61,7 @@ export default function JobsContainer() {
         display: "flex",
         flex: 1,
         flexWrap: "wrap",
-        gap: 3,
+        gap: 1,
       }}
     >
       {jobs.map((job: any | unknown) => {

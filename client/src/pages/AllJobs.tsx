@@ -1,28 +1,27 @@
 import AddToPhotosIcon from "@mui/icons-material/AddToPhotos";
 import DynamicFormIcon from "@mui/icons-material/DynamicForm";
-import { Badge, Box, Button, Paper } from "@mui/material";
+import { Badge, Box, Button } from "@mui/material";
 import { createContext, useContext } from "react";
 import toast from "react-hot-toast";
 import { Link, redirect, useLoaderData } from "react-router-dom";
 import Header from "../components/Header";
-import JobsContainer from "../components/Jobs";
-import SearchContainer from "../components/Search";
+import JobsContainer from "../components/JobsContainer";
+import SearchContainer from "../components/SearchContainer";
 import { customFetch } from "../utils/custom-fetch";
 
 // eslint-disable-next-line react-refresh/only-export-components
 export const allJobsLoader = async () => {
   try {
     const { data } = await customFetch.get("/jobs");
-    toast(data.msg, {
-      icon: "👏 👏 👏",
-      duration: 1000,
+    toast.loading(data.msg, {
+      duration: 2000,
+      position: "top-center",
     });
     return data;
   } catch (error) {
     return redirect("/");
   }
 };
-
 export interface IJobs {
   msg: string;
   length: number;
@@ -30,6 +29,7 @@ export interface IJobs {
 }
 
 const AllJobsContext = createContext({});
+
 const AllJobs = () => {
   const data = useLoaderData() as IJobs;
 
@@ -51,9 +51,7 @@ const AllJobs = () => {
       </Box>
       <Box sx={{ display: "flex", flexDirection: "column", gap: 2 }}>
         {/* SEARCH CONTAINER  */}
-        <Paper elevation={1} sx={{ py: 1 }}>
-          <SearchContainer />
-        </Paper>
+        <SearchContainer />
         {/* JOBS CONTAINER  */}
         <JobsContainer />
       </Box>
@@ -63,6 +61,7 @@ const AllJobs = () => {
 
 export default AllJobs;
 
+// eslint-disable-next-line react-refresh/only-export-components
 export const useAllJobsContext = () => {
   return useContext(AllJobsContext);
 };

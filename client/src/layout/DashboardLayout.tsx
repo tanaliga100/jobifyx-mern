@@ -1,7 +1,9 @@
-import { Box, Container, Grid } from "@mui/material";
+import { Box, Container, Divider, Grid } from "@mui/material";
 import { createContext, useContext, useState } from "react";
 import toast from "react-hot-toast";
 import { Outlet, redirect, useLoaderData, useNavigate } from "react-router-dom";
+import Logout from "../components/Logout";
+import ThemeToggler from "../components/ThemeToggler";
 import Logo from "../pages/Logo";
 import Sidebar from "../pages/Sidebar";
 import { customFetch } from "../utils/custom-fetch";
@@ -44,13 +46,13 @@ const DashboardLayout = () => {
   const user = useLoaderData() as unknown;
 
   const [isDarkTheme, setIsDarkTheme] = useState<boolean>(false);
-  const toggleDarkTheme = () => {
+  const toggleTheme = () => {
     setIsDarkTheme(!isDarkTheme);
   };
   const logoutUser = async () => {
     await customFetch.get("/auth/logout");
     // eslint-disable-next-line @typescript-eslint/no-explicit-any
-    const msg = "User Logging Out...";
+    const msg = "User Logs Out...";
     toast(msg, {
       icon: "👋👋👋",
       duration: 1000,
@@ -61,7 +63,8 @@ const DashboardLayout = () => {
     <DashboardContext.Provider
       value={{
         user,
-        toggleDarkTheme,
+        isDarkTheme,
+        toggleTheme,
         logoutUser,
       }}
     >
@@ -76,6 +79,18 @@ const DashboardLayout = () => {
               }}
             >
               <Logo />
+              <Box
+                sx={{
+                  display: "flex",
+                  alignItems: "center",
+                  gap: 3,
+                  justifyContent: "space-between",
+                }}
+              >
+                <ThemeToggler />
+                <Divider orientation="vertical" flexItem />
+                <Logout />
+              </Box>
             </Box>
           </Container>
           <Container
@@ -99,7 +114,14 @@ const DashboardLayout = () => {
 
 export default DashboardLayout;
 
+// export interface IContext {
+//   user?: undefined | any;
+//   isDarkTheme?: boolean;
+//   toggleDarkTheme?: () => void;
+//   logoutUser?: () => void | undefined;
+// }
+
 // eslint-disable-next-line react-refresh/only-export-components
 export const useDashboardContext = () => {
-  return useContext(DashboardContext);
+  return useContext(DashboardContext)!;
 };

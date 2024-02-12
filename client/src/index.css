@@ -94,14 +94,19 @@ a {
   margin: 2rem;
 }
 .active {
-  background-image: linear-gradient(
+  /* background-image: linear-gradient(
     to right,
     rgba(0, 128, 128, 0.226),
     white,
     white
-  );
+  ); */
   transition: all 0.3s;
 }
 .link {
-  margin-bottom: 5rem;
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  justify-content: flex-start;
+  column-gap: 1rem;
+  padding-bottom: 1rem;
 }

@@ -4,27 +4,27 @@ export interface ILinks {
   label: string;
 }
 export const Links: ILinks[] = [
-  { href: "/dashboard", label: "Stats", icon: <ImStatsBars2 size={25} /> },
+  { href: "/dashboard", label: "Stats", icon: <ImStatsBars2 size={20} /> },
 
   {
     href: "/dashboard/all-jobs",
     label: "All Jobs",
-    icon: <FaBorderAll size={25} />,
+    icon: <FaBorderAll size={20} />,
   },
   {
     href: "/dashboard/add-job",
     label: "Add Job",
-    icon: <MdOutlineAddToPhotos size={25} />,
+    icon: <MdOutlineAddToPhotos size={20} />,
   },
   {
     href: "/dashboard/profile",
     label: "Profile",
-    icon: <FaAddressCard size={25} />,
+    icon: <FaAddressCard size={20} />,
   },
   {
     href: "/dashboard/admin",
     label: "Admin",
-    icon: <MdAdminPanelSettings size={30} />,
+    icon: <MdAdminPanelSettings size={20} />,
   },
 ];
 

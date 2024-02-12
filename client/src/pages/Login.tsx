@@ -1,4 +1,4 @@
-import { Button, Container, Grid, TextField, Typography } from "@mui/material";
+import { Button, Container, Grid, Typography } from "@mui/material";
 import { AxiosResponse } from "axios";
 import toast from "react-hot-toast";
 import { MdAlternateEmail } from "react-icons/md";
@@ -86,7 +86,6 @@ const Login = () => {
               name="email"
               label="Email"
               placeholder="Enter your Email"
-              defaultValue="sample@mail.com"
             />
           </Grid>
           <Grid
@@ -95,16 +94,12 @@ const Login = () => {
             sx={{ display: "flex", alignItems: "center", gap: 1 }}
           >
             <TbPasswordUser size={20} />
-            <TextField
-              fullWidth
-              id="outlined-basic"
+
+            <FormRow
               label="Password"
-              variant="outlined"
-              size="small"
               placeholder="Enter Password"
               type="password"
               name="password"
-              defaultValue="secret"
             />
           </Grid>
           <Grid
