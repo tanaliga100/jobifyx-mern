@@ -1,11 +1,9 @@
-import { Box, Container, Divider, Grid } from "@mui/material";
+import { Box, Container, Grid } from "@mui/material";
 import { createContext, useContext, useState } from "react";
 import toast from "react-hot-toast";
 import { Outlet, redirect, useLoaderData, useNavigate } from "react-router-dom";
-import Logout from "../components/Logout";
-import ThemeToggler from "../components/ThemeToggler";
-import Logo from "../pages/Logo";
-import Sidebar from "../pages/Sidebar";
+import Navbar from "../pages/Navbar";
+import NestedList from "../pages/SidebarTemp";
 import { customFetch } from "../utils/custom-fetch";
 
 // eslint-disable-next-line react-refresh/only-export-components
@@ -70,38 +68,18 @@ const DashboardLayout = () => {
     >
       <Box>
         <Grid container sx={{ minHeight: "70vh" }}>
-          <Container maxWidth="xl">
-            <Box
-              sx={{
-                display: "flex",
-                alignItems: "center",
-                justifyContent: "space-between",
-              }}
-            >
-              <Logo />
-              <Box
-                sx={{
-                  display: "flex",
-                  alignItems: "center",
-                  gap: 3,
-                  justifyContent: "space-between",
-                }}
-              >
-                <ThemeToggler />
-                <Divider orientation="vertical" flexItem />
-                <Logout />
-              </Box>
-            </Box>
-          </Container>
+          <Box sx={{ height: "18dvh", width: "100dvw" }}>
+            <Navbar />
+          </Box>
           <Container
             maxWidth="xl"
-            sx={{ display: "flex", height: "80dvh", pt: 3 }}
+            sx={{ display: "flex", gap: 1, height: "80dvh" }}
           >
-            <Grid item xs={1.5}>
+            <Grid item xs={2}>
               {/* LEFT SIDE  */}
-              <Sidebar />
+              <NestedList />
             </Grid>
-            <Grid item xs={10.5}>
+            <Grid item xs={9.5}>
               {/* RIGHT SIDE  */}
               <Outlet context={{ user }} />
             </Grid>

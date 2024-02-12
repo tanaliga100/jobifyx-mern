@@ -3,19 +3,24 @@ export interface ILinks {
   icon: React.ReactNode;
   label: string;
 }
+
 export const Links: ILinks[] = [
   { href: "/dashboard", label: "Stats", icon: <ImStatsBars2 size={20} /> },
-
   {
-    href: "/dashboard/all-jobs",
-    label: "All Jobs",
+    href: "/dashboard/jobs",
+    label: "Jobs",
     icon: <FaBorderAll size={20} />,
   },
-  {
-    href: "/dashboard/add-job",
-    label: "Add Job",
-    icon: <MdOutlineAddToPhotos size={20} />,
-  },
+  // {
+  //   href: "/dashboard/all-jobs",
+  //   label: "All Jobs",
+  //   icon: <FaBorderAll size={20} />,
+  // },
+  // {
+  //   href: "/dashboard/add-job",
+  //   label: "Add Job",
+  //   icon: <MdOutlineAddToPhotos size={20} />,
+  // },
   {
     href: "/dashboard/profile",
     label: "Profile",
@@ -30,9 +35,8 @@ export const Links: ILinks[] = [
 
 import { ImStatsBars2 } from "react-icons/im";
 
-import { FaAddressCard } from "react-icons/fa";
+import { FaAddressCard, FaBorderAll } from "react-icons/fa";
 
-import { FaBorderAll } from "react-icons/fa";
-import { MdOutlineAddToPhotos } from "react-icons/md";
+// import { MdOutlineAddToPhotos } from "react-icons/md";
 
 import { MdAdminPanelSettings } from "react-icons/md";

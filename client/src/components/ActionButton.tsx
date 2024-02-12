@@ -13,8 +13,10 @@ export default function ActionButton({
 }) {
   return (
     <Link to={url}>
-      <Typography variant="caption">{label}</Typography>
-      <IconButton>{icon}</IconButton>
+      <Typography variant="button" fontWeight={700} color="error">
+        {label}
+      </Typography>
+      <IconButton color="error">{icon}</IconButton>
     </Link>
   );
 }

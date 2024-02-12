@@ -1,3 +1,4 @@
+import { CssBaseline } from "@mui/material";
 import React from "react";
 import ReactDOM from "react-dom/client";
 import App from "./App.tsx";
@@ -8,6 +9,7 @@ import { customFetch } from "./utils/custom-fetch.ts";
 ReactDOM.createRoot(document.getElementById("root")!).render(
   <React.StrictMode>
     <Providers>
+      <CssBaseline />
       <App />
     </Providers>
   </React.StrictMode>

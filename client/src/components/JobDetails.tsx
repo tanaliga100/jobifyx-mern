@@ -1,13 +1,24 @@
-import { Typography } from "@mui/material";
+import {
+  Box,
+  Button,
+  Chip,
+  IconButton,
+  Modal,
+  Paper,
+  Typography,
+} from "@mui/material";
 import Card from "@mui/material/Card";
 import CardActions from "@mui/material/CardActions";
 import CardContent from "@mui/material/CardContent";
 
+import AllOutIcon from "@mui/icons-material/AllOut";
+import ControlCameraIcon from "@mui/icons-material/ControlCamera";
 import DeleteIcon from "@mui/icons-material/Delete";
-import EditNoteIcon from "@mui/icons-material/EditNote";
 import day from "dayjs";
 import advancedFormat from "dayjs/plugin/advancedFormat";
-import ActionButton from "./ActionButton";
+import React from "react";
+import { Link } from "react-router-dom";
+import Header from "./Header";
 import JobInfo from "./JobInfo";
 day.extend(advancedFormat);
 
@@ -35,20 +46,32 @@ export default function JobDetails(job: IProps | any) {
     company,
     jobLocation,
   };
-  console.log(job);
+  // let badgeColor = "";
+  // switch (job.jobStatus) {
+  //   case "interview":
+  //     badgeColor = "success";
+  //     break;
+  //   case "declined":
+  //     badgeColor = "error";
+  //     break;
+  //   default:
+  //     badgeColor = "info";
+  //     break;
+  // }
 
-  let badgeColor = "";
-  switch (job.jobStatus) {
-    case "interview":
-      badgeColor = "success";
-      break;
-    case "declined":
-      badgeColor = "error";
-      break;
-    default:
-      badgeColor = "info";
-      break;
-  }
+  const [open, setOpen] = React.useState(false);
+  const handleOpen = () => setOpen(true);
+  const handleClose = () => setOpen(false);
+
+  const style = {
+    position: "absolute" as const,
+    top: "40%",
+    left: "50%",
+    transform: "translate(-50%, -50%)",
+    bgcolor: "background.paper",
+    boxShadow: 24,
+    p: 4,
+  };
 
   return (
     <Card sx={{ display: "flex" }}>
@@ -57,7 +80,7 @@ export default function JobDetails(job: IProps | any) {
         variant="filled"
         // color={badgeColor}
         sx={{
-          fontSize: ".5rem",
+          fontSize: "1rem",
           color: "white",
           fontWeight: "2rem",
         }}
@@ -76,13 +99,157 @@ export default function JobDetails(job: IProps | any) {
           justifyContent: "center",
         }}
       >
-        <ActionButton icon={<EditNoteIcon />} url="#" label="Edit " />
-        <ActionButton icon={<DeleteIcon />} url="#" label="Delete " />
+        <div
+          className={`color: ${job.jobStatus === "pending" ? "red" : "blue"}`}
+        >
+          <Button onClick={handleOpen}>
+            <AllOutIcon />
+          </Button>
+        </div>
       </CardActions>
+
+      {/* MODAL HERE */}
+      <div>
+        <Modal
+          open={open}
+          onClose={handleClose}
+          aria-labelledby="modal-modal-title"
+          aria-describedby="modal-modal-description"
+        >
+          <Box sx={style}>
+            <Header
+              title="Selected Job"
+              subtitle="Information about the jobs "
+              id={job._id}
+            />
+            <Box
+              sx={{
+                display: "grid",
+                gridTemplateColumns: "repeat(4, 1fr)",
+                placeItems: "center",
+              }}
+            >
+              <Paper
+                elevation={1}
+                sx={{
+                  display: "flex",
+                  flexDirection: "column",
+                  justifyContent: "center",
+                  alignItems: "center",
+                  p: 1,
+                }}
+              >
+                <Chip
+                  label="POSITION"
+                  variant="outlined"
+                  sx={{ fontSize: ".6rem" }}
+                />
+
+                <Typography variant="overline" fontWeight={600}>
+                  {job.position}
+                </Typography>
+                <IconButton>
+                  <ControlCameraIcon />
+                </IconButton>
+              </Paper>
+              <Paper
+                elevation={1}
+                sx={{
+                  display: "flex",
+                  flexDirection: "column",
+                  justifyContent: "center",
+                  alignItems: "center",
+                  p: 1,
+                }}
+              >
+                <Chip
+                  label="STATUS"
+                  variant="outlined"
+                  sx={{ fontSize: ".6rem" }}
+                />
+                <Typography variant="overline" fontWeight={600}>
+                  {job.jobStatus}
+                </Typography>
+                <IconButton>
+                  <ControlCameraIcon />
+                </IconButton>
+              </Paper>
+              <Paper
+                elevation={1}
+                sx={{
+                  display: "flex",
+                  flexDirection: "column",
+                  justifyContent: "center",
+                  alignItems: "center",
+                  p: 1,
+                }}
+              >
+                <Chip
+                  label="LOCATION"
+                  variant="outlined"
+                  sx={{ fontSize: ".6rem" }}
+                />
+                <Typography variant="overline" fontWeight={600}>
+                  {job.jobLocation}
+                </Typography>
+                <IconButton>
+                  <ControlCameraIcon />
+                </IconButton>
+              </Paper>{" "}
+              <Paper
+                elevation={1}
+                sx={{
+                  display: "flex",
+                  flexDirection: "column",
+                  justifyContent: "center",
+                  alignItems: "center",
+                  p: 1,
+                }}
+              >
+                <Chip
+                  label="Type"
+                  variant="outlined"
+                  sx={{ fontSize: ".6rem" }}
+                />
+                <Typography variant="overline" fontWeight={600}>
+                  {job.jobType}
+                </Typography>
+                <IconButton>
+                  <ControlCameraIcon />
+                </IconButton>
+              </Paper>
+            </Box>
+            <Box
+              sx={{
+                display: "flex",
+                gap: 5,
+                mt: 5,
+                width: "100%",
+                justifyContent: "center",
+                // alignItems: "center",
+              }}
+            >
+              {/* <ActionButton
+                icon={<EditNoteIcon color="error" />}
+                url="#"
+                label="Edit"
+              />
+              <ActionButton icon={<DeleteIcon />} url="#" label="Delete" /> */}
+              <Link to={`/dashboard/edit-job/${job._id}`}>Edit</Link>
+              <Button
+                variant="contained"
+                color="error"
+                startIcon={<DeleteIcon />}
+              >
+                Delete
+              </Button>
+            </Box>
+          </Box>
+        </Modal>
+      </div>
     </Card>
   );
 }
-
 // const columns: GridColDef[] = [
 //   { field: "id", headerName: "ID", width: 70 },
 //   { field: "firstName", headerName: "COMPANY", width: 130 },

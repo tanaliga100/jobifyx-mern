@@ -4,6 +4,7 @@ import HomeLayout from "./layout/HomeLayout";
 import AddJob, { addJobAction } from "./pages/AddJob";
 import Admin from "./pages/Admin";
 import AllJobs, { allJobsLoader } from "./pages/AllJobs";
+import EditJob, { editJobAction, editJobLoader } from "./pages/EditJob";
 import Error from "./pages/Error";
 import Landing from "./pages/Landing";
 import Login, { actionLogin } from "./pages/Login";
@@ -41,14 +42,20 @@ export const router = createBrowserRouter([
             element: <Stats />,
           },
           {
-            path: "add-job",
-            element: <AddJob />,
-            action: addJobAction,
-          },
-          {
             path: "all-jobs",
             element: <AllJobs />,
             loader: allJobsLoader,
+          },
+          {
+            path: "add-job",
+            action: addJobAction,
+            element: <AddJob />,
+          },
+          {
+            path: "edit-job/:id",
+            element: <EditJob />,
+            loader: editJobLoader,
+            action: editJobAction,
           },
           {
             path: "profile",

@@ -110,3 +110,17 @@ a {
   column-gap: 1rem;
   padding-bottom: 1rem;
 }
+.interview {
+  color: green;
+}
+
+.pending {
+  color: red;
+}
+
+.declined {
+  color: blue;
+}
+.nav-text {
+  font-weight: 700;
+}
