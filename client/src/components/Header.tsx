@@ -11,7 +11,7 @@ const Header = ({ title, subtitle }: IHeader) => {
       <Typography variant="body1" fontWeight={900} color="GrayText">
         {title}
       </Typography>
-      <Typography variant="subtitle2" component="p" color="Highlight">
+      <Typography variant="caption" component="p" color="CaptionText">
         {subtitle}
       </Typography>
     </Stack>

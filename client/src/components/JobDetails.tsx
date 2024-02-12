@@ -12,17 +12,40 @@ interface IProps {
   _id: string;
 }
 
-export default function JobDetails(jobs: IProps | any) {
-  console.log("details", jobs);
+export default function JobDetails(job: IProps | any) {
+  console.log("details", job);
   return (
-    <Box sx={{ height: "auto", overflowY: "auto" }}>
-      <Typography variant="caption">{jobs._id} </Typography>
-    </Box>
+    <Card sx={{}}>
+      {/* <Typography variant="caption">{job._id} </Typography> */}
+      <CardContent sx={{ flex: "1 0 auto" }}>
+        <Typography component="div" variant="caption" fontWeight={700}>
+          {job.position}
+        </Typography>
+        <Typography variant="body2" color="text.secondary" component="div">
+          {job.company}
+        </Typography>
+        <Typography variant="caption" color="error" component="div">
+          {job.jobType}
+        </Typography>
+      </CardContent>
+      <CardActions>
+        <IconButton aria-label="add to favorites">
+          <FavoriteIcon />
+        </IconButton>
+        <IconButton aria-label="share">
+          <ShareIcon />
+        </IconButton>
+      </CardActions>
+    </Card>
   );
 }
-
-import { Box, Typography } from "@mui/material";
-
+import FavoriteIcon from "@mui/icons-material/Favorite";
+import ShareIcon from "@mui/icons-material/Share";
+import { Typography } from "@mui/material";
+import Card from "@mui/material/Card";
+import CardActions from "@mui/material/CardActions";
+import CardContent from "@mui/material/CardContent";
+import IconButton from "@mui/material/IconButton";
 // const columns: GridColDef[] = [
 //   { field: "id", headerName: "ID", width: 70 },
 //   { field: "firstName", headerName: "COMPANY", width: 130 },

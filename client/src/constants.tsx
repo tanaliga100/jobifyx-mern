@@ -5,15 +5,16 @@ export interface ILinks {
 }
 export const Links: ILinks[] = [
   { href: "/dashboard", label: "Stats", icon: <ImStatsBars2 size={25} /> },
-  {
-    href: "/dashboard/add-job",
-    label: "Add Job",
-    icon: <MdOutlineAddToPhotos size={25} />,
-  },
+
   {
     href: "/dashboard/all-jobs",
     label: "All Jobs",
     icon: <FaBorderAll size={25} />,
+  },
+  {
+    href: "/dashboard/add-job",
+    label: "Add Job",
+    icon: <MdOutlineAddToPhotos size={25} />,
   },
   {
     href: "/dashboard/profile",

@@ -7,13 +7,13 @@ const SearchContainer = () => {
         id="outlined-basic"
         size="small"
         placeholder="Search for the jobs"
-        variant="standard"
+        variant="outlined"
       />
       <TextField
         id="outlined-basic"
         size="small"
         placeholder="Search for the jobs"
-        variant="standard"
+        variant="outlined"
       />
     </Box>
   );
