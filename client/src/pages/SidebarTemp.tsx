@@ -1,3 +1,4 @@
+/* eslint-disable @typescript-eslint/no-explicit-any */
 import BookmarkAddIcon from "@mui/icons-material/BookmarkAdd";
 import ExpandLess from "@mui/icons-material/ExpandLess";
 import ExpandMore from "@mui/icons-material/ExpandMore";
@@ -13,8 +14,12 @@ import { FaAddressCard, FaBorderAll } from "react-icons/fa";
 import { ImStatsBars2 } from "react-icons/im";
 import { MdAdminPanelSettings } from "react-icons/md";
 import { NavLink, useLocation } from "react-router-dom";
+import { useDashboardContext } from "../layout/DashboardLayout";
 
 export default function NestedList() {
+  const ctx = useDashboardContext() as any;
+  const validUser = ctx?.user.profile.role === "ADMIN";
+
   const currentRoute = useLocation();
   const isActive = currentRoute.pathname.startsWith("/dashboard/edit-job/");
 
@@ -83,14 +88,16 @@ export default function NestedList() {
           <ListItemText primary="Profile" />
         </ListItemButton>
       </NavLink>
-      <NavLink to="/dashboard/admin">
-        <ListItemButton>
-          <ListItemIcon>
-            <MdAdminPanelSettings />
-          </ListItemIcon>
-          <ListItemText primary="Admin" />
-        </ListItemButton>
-      </NavLink>
+      {validUser && (
+        <NavLink to="/dashboard/admin">
+          <ListItemButton disabled={!validUser}>
+            <ListItemIcon>
+              <MdAdminPanelSettings />
+            </ListItemIcon>
+            <ListItemText primary="Admin" />
+          </ListItemButton>
+        </NavLink>
+      )}
     </List>
   );
 }

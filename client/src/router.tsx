@@ -2,7 +2,7 @@ import { createBrowserRouter } from "react-router-dom";
 import DashboardLayout, { dashboardLoaders } from "./layout/DashboardLayout";
 import HomeLayout from "./layout/HomeLayout";
 import AddJob, { addJobAction } from "./pages/AddJob";
-import Admin from "./pages/Admin";
+import Admin, { adminLoaders } from "./pages/Admin";
 import AllJobs, { allJobsLoader } from "./pages/AllJobs";
 import { deleteJobAction } from "./pages/DeleteJob";
 import EditJob, { editJobAction, editJobLoader } from "./pages/EditJob";
@@ -69,6 +69,7 @@ export const router = createBrowserRouter([
           {
             path: "admin",
             element: <Admin />,
+            loader: adminLoaders,
           },
         ],
       },

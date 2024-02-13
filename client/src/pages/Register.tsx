@@ -79,7 +79,6 @@ const Register = () => {
               name="firstName"
               label="First Name"
               placeholder="Enter your First Name"
-              defaultValue="Jordan"
             />
           </Grid>
           <Grid
@@ -93,7 +92,6 @@ const Register = () => {
               name="lastName"
               label="Last Name"
               placeholder="Enter your Last Name"
-              defaultValue="Tanaliga"
             />
           </Grid>
 
@@ -108,7 +106,6 @@ const Register = () => {
               name="email"
               label="Email"
               placeholder="Enter your Email"
-              defaultValue="sample@mail.com"
             />
           </Grid>
           <Grid
@@ -122,7 +119,6 @@ const Register = () => {
               name="password"
               label="Password"
               placeholder="Enter your Password"
-              defaultValue="secret"
             />
           </Grid>
 
