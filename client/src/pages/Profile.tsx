@@ -7,9 +7,11 @@ const Profile = () => {
   return (
     <Box sx={{ display: "flex", flex: 1, gap: 10, alignItems: "center" }}>
       <Header title="Profile" subtitle="You can edit your prof" />
-      <Button color="error" size="small" startIcon={<AccountCircleIcon />}>
-        <Link to="#">Profile</Link>
-      </Button>
+      <Link to="#">
+        <Button color="error" size="small" startIcon={<AccountCircleIcon />}>
+          Profile
+        </Button>
+      </Link>
     </Box>
   );
 };

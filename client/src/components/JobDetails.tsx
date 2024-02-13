@@ -17,7 +17,7 @@ import DeleteIcon from "@mui/icons-material/Delete";
 import day from "dayjs";
 import advancedFormat from "dayjs/plugin/advancedFormat";
 import React from "react";
-import { Link } from "react-router-dom";
+import { Form, Link } from "react-router-dom";
 import Header from "./Header";
 import JobInfo from "./JobInfo";
 day.extend(advancedFormat);
@@ -236,13 +236,16 @@ export default function JobDetails(job: IProps | any) {
               />
               <ActionButton icon={<DeleteIcon />} url="#" label="Delete" /> */}
               <Link to={`/dashboard/edit-job/${job._id}`}>Edit</Link>
-              <Button
-                variant="contained"
-                color="error"
-                startIcon={<DeleteIcon />}
-              >
-                Delete
-              </Button>
+              <Form method="post" action={`/dashboard/delete-job/${job._id}`}>
+                <Button
+                  type="submit"
+                  variant="contained"
+                  color="error"
+                  startIcon={<DeleteIcon />}
+                >
+                  Dele
+                </Button>
+              </Form>
             </Box>
           </Box>
         </Modal>

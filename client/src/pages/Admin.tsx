@@ -7,11 +7,15 @@ const Admin = () => {
   return (
     <Box sx={{ display: "flex", flex: 1, gap: 10, alignItems: "center" }}>
       <Header title="Admin" subtitle="The wildcard control" />
-      <Button color="error" size="small" startIcon={<AdminPanelSettingsIcon />}>
-        <Link to="#" aria-disabled>
+      <Link to="#" aria-disabled>
+        <Button
+          color="error"
+          size="small"
+          startIcon={<AdminPanelSettingsIcon />}
+        >
           Admin
-        </Link>
-      </Button>
+        </Button>
+      </Link>
     </Box>
   );
 };

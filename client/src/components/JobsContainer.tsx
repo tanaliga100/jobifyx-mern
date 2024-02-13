@@ -29,7 +29,6 @@ import JobDetails from "./JobDetails";
 export default function JobsContainer() {
   const data = useAllJobsContext();
   const { jobs, length } = data as IJobs;
-  console.log("CONTEXT_JOBS", jobs);
   // const [gridRows, setGridRows] = useState<IJob | any>([]);
 
   // useEffect(() => {

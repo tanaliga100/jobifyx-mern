@@ -13,7 +13,7 @@ export default function ActionButton({
 }) {
   return (
     <Link to={url}>
-      <Typography variant="button" fontWeight={700} color="error">
+      <Typography fontWeight={700} color="error">
         {label}
       </Typography>
       <IconButton color="error">{icon}</IconButton>

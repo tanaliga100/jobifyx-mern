@@ -4,7 +4,6 @@ import { useDashboardContext } from "../layout/DashboardLayout";
 
 const Logo = () => {
   const user = useDashboardContext();
-  console.log("LOGO", user);
 
   return (
     <Box sx={{ py: 2 }} fontSize={30} fontWeight={900}>

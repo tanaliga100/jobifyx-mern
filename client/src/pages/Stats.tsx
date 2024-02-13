@@ -7,9 +7,11 @@ const Stats = () => {
   return (
     <Box sx={{ display: "flex", flex: 1, gap: 10, alignItems: "center" }}>
       <Header title="Stats" subtitle="All the records are here..." />
-      <Button color="error" size="small" startIcon={<AddToPhotosIcon />}>
-        <Link to="/dashboard/add-job">Add Job</Link>
-      </Button>
+      <Link to="/dashboard/add-job">
+        <Button color="error" size="small" startIcon={<AddToPhotosIcon />}>
+          Add Job
+        </Button>
+      </Link>
     </Box>
   );
 };

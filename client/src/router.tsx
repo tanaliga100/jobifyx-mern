@@ -4,6 +4,7 @@ import HomeLayout from "./layout/HomeLayout";
 import AddJob, { addJobAction } from "./pages/AddJob";
 import Admin from "./pages/Admin";
 import AllJobs, { allJobsLoader } from "./pages/AllJobs";
+import { deleteJobAction } from "./pages/DeleteJob";
 import EditJob, { editJobAction, editJobLoader } from "./pages/EditJob";
 import Error from "./pages/Error";
 import Landing from "./pages/Landing";
@@ -56,6 +57,10 @@ export const router = createBrowserRouter([
             element: <EditJob />,
             loader: editJobLoader,
             action: editJobAction,
+          },
+          {
+            path: "delete-job/:id",
+            action: deleteJobAction,
           },
           {
             path: "profile",

@@ -10,13 +10,7 @@ import {
 } from "@mui/material";
 import { useState } from "react";
 import toast from "react-hot-toast";
-import {
-  Form,
-  Link,
-  redirect,
-  useNavigation,
-  useOutletContext,
-} from "react-router-dom";
+import { Form, Link, redirect, useNavigation } from "react-router-dom";
 import { JOB_STATUS, JOB_TYPE } from "../../../src/utils/constants";
 import FormRow from "../components/FormRow";
 import Header from "../components/Header";
@@ -26,14 +20,12 @@ import { customFetch } from "../utils/custom-fetch";
 export const addJobAction = async ({ request }: { request: Request }) => {
   const formData = await request.formData();
   const jobData = Object.fromEntries(formData);
-  console.log("data", jobData);
   // submission here...
   try {
     const response = await customFetch.post("/jobs", jobData);
     // eslint-disable-next-line @typescript-eslint/no-unused-vars
     const { msg } = await response.data;
     toast.success(msg, {
-      icon: "👏 👏 👏",
       duration: 2000,
     });
     return redirect("/dashboard");
@@ -53,8 +45,6 @@ const AddJob = () => {
   const [type, setType] = useState("");
   const [status, setStatus] = useState("");
 
-  const userCreds = useOutletContext!();
-  console.log("CONTEXT", userCreds);
   const navigation = useNavigation();
 
   const isSubmitting = navigation.state === "submitting";

@@ -45,9 +45,11 @@ const AllJobs = () => {
         >
           <DynamicFormIcon color="action" sx={{ color: "red" }} />
         </Badge>
-        <Button color="error" size="small" startIcon={<AddToPhotosIcon />}>
-          <Link to="/dashboard/add-job">Add Job</Link>
-        </Button>
+        <Link to="/dashboard/add-job">
+          <Button color="error" size="small" startIcon={<AddToPhotosIcon />}>
+            Add Job
+          </Button>
+        </Link>
       </Box>
       <Box sx={{ display: "flex", flexDirection: "column", gap: 2 }}>
         {/* SEARCH CONTAINER  */}

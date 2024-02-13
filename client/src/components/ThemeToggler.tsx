@@ -6,7 +6,6 @@ import { useDashboardContext } from "../layout/DashboardLayout";
 export default function ThemeToggler() {
   // eslint-disable-next-line @typescript-eslint/no-explicit-any
   const ctx = useDashboardContext() as any;
-  console.log("ctx", ctx);
   return (
     <Box onClick={ctx.toggleTheme}>
       {ctx.isDarkTheme ? (

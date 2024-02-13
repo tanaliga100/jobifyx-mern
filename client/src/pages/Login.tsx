@@ -58,7 +58,6 @@ const Login = () => {
   const navigation = useNavigation();
   const isSubmitting = navigation.state === "submitting";
   const errors = useActionData() as Err;
-  console.log("ERRORS", errors);
 
   return (
     <Container

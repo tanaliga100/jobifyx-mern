@@ -17,7 +17,7 @@ const Landing = () => {
         <Box mb={2} sx={{ display: "flex", flexDirection: "column" }} gap={3}>
           <Typography variant="h2" fontSize={25} fontWeight={900}>
             <Typography
-              component="span"
+              component="p"
               color="teal"
               variant="h2"
               fontWeight={800}
@@ -25,7 +25,7 @@ const Landing = () => {
               Job{" "}
             </Typography>
             <Typography
-              component="span"
+              component="p"
               color="black"
               variant="h2"
               fontWeight={800}
@@ -33,7 +33,7 @@ const Landing = () => {
               Tracking
             </Typography>{" "}
             <Typography
-              component="span"
+              component="p"
               color="teal"
               variant="h2"
               fontWeight={800}
@@ -47,9 +47,11 @@ const Landing = () => {
             accusamus.
           </Typography>
         </Box>
-        <Button variant="outlined" color="info" size="small">
-          <Link to="login">Proceed</Link>
-        </Button>
+        <Link to="login">
+          <Button variant="outlined" color="info" size="small">
+            Proceed
+          </Button>
+        </Link>
       </Grid>
       <Grid item xs={7}>
         <Typography variant="body2" fontSize={15} fontWeight={900}>
