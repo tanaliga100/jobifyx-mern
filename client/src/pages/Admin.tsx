@@ -35,7 +35,12 @@ const Admin = () => {
   return (
     <AdminContext.Provider value={{ obj, msg }}>
       <Box
-        sx={{ display: "flex", flex: 1, gap: 10, py: 3, alignItems: "center" }}
+        sx={{
+          display: "flex",
+          flex: 1,
+          gap: 10,
+          alignItems: "center",
+        }}
       >
         <Header title="Admin" subtitle="Admin Panel" />
         <Link to="#" aria-disabled>
@@ -48,7 +53,7 @@ const Admin = () => {
           </Button>
         </Link>
       </Box>
-      <Box sx={{ height: "20dvh" }}>
+      <Box sx={{ height: "10dvh" }}>
         <AdminStats />
       </Box>
     </AdminContext.Provider>
