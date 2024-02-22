@@ -9,12 +9,14 @@ interface IHeader {
 const Header = ({ title, subtitle, id }: IHeader) => {
   return (
     <Stack pb={3}>
-      <Typography variant="body1" fontWeight={900} color="GrayText">
-        {title}
-      </Typography>
-      <Typography variant="caption" component="p" color="CaptionText">
-        {subtitle}
-      </Typography>
+      <Box>
+        <Typography variant="body1" fontWeight={900} color="GrayText">
+          {title}
+        </Typography>
+        <Typography variant="caption" component="p" color="CaptionText">
+          {subtitle}
+        </Typography>
+      </Box>
       {id && (
         <Box
           sx={{

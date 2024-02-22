@@ -88,16 +88,14 @@ export default function NestedList() {
           <ListItemText primary="Profile" />
         </ListItemButton>
       </NavLink>
-      {validUser && (
-        <NavLink to="/dashboard/admin">
-          <ListItemButton disabled={!validUser}>
-            <ListItemIcon>
-              <MdAdminPanelSettings />
-            </ListItemIcon>
-            <ListItemText primary="Admin" />
-          </ListItemButton>
-        </NavLink>
-      )}
+      <NavLink to="/dashboard/admin">
+        <ListItemButton disabled={!validUser}>
+          <ListItemIcon>
+            <MdAdminPanelSettings />
+          </ListItemIcon>
+          <ListItemText primary="Admin" />
+        </ListItemButton>
+      </NavLink>
     </List>
   );
 }

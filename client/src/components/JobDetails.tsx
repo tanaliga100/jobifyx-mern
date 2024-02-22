@@ -100,14 +100,15 @@ export default function JobDetails(job: IProps | any) {
         }}
       >
         <div
-          className={`color: ${job.jobStatus === "pending" ? "red" : "blue"}`}
+          className={`color: ${
+            job.jobStatus === "pending" ? "pending" : "blue"
+          }`}
         >
           <Button onClick={handleOpen}>
             <AllOutIcon />
           </Button>
         </div>
       </CardActions>
-
       {/* MODAL HERE */}
       <div>
         <Modal

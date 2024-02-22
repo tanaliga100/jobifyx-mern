@@ -3,6 +3,7 @@ import dotenv from "dotenv";
 import express, { Express, NextFunction, Request, Response } from "express";
 import { StatusCodes } from "http-status-codes";
 import morgan from "morgan";
+import path from "path";
 import { connectDb } from "./config";
 import {
   authenticateMiddleware,
@@ -19,6 +20,17 @@ dotenv.config();
 // instance
 const app: Express = express();
 const port = process.env.PORT || 8000;
+
+// // PUBLIC
+
+// const path = require("path");
+// const { dirname } = require("path");
+// const __dirname = dirname(__filename);
+
+// import path from "path";
+// const { fileURLToPath } = require("url");
+// const __filename = fileURLToPath(import.meta.url);
+app.use(express.static(path.resolve(__dirname, "/public")));
 
 // MIDDLEWARES - TOP
 app.use(cookieParser());
@@ -48,6 +60,7 @@ app.get("/api/v1", (req: Request, res: Response) => {
     msg: "TEST ROUTE",
   });
 });
+
 // app.post("/:id", validateTest, (req: Request, res: Response) => {
 //   const { name } = req.body;
 //   res.status(200).json({
