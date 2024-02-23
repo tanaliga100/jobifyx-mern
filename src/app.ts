@@ -30,11 +30,12 @@ const port = process.env.PORT || 8000;
 // import path from "path";
 // const { fileURLToPath } = require("url");
 // const __filename = fileURLToPath(import.meta.url);
-app.use(express.static(path.resolve(__dirname, "/public")));
 
 // MIDDLEWARES - TOP
-app.use(cookieParser());
+
+app.use(express.static(path.resolve(__dirname, "../public")));
 app.use(express.json());
+app.use(cookieParser());
 app.use(express.urlencoded({ extended: true }));
 if (process.env.NODE_ENV === "development") {
   app.use(morgan("dev"));

@@ -25,9 +25,17 @@ export default function NestedList() {
 
   const [open, setOpen] = React.useState(true);
 
-  const handleClick = () => {
+  const handleClick = (item: any) => {
     setOpen(!open);
+    setActiveItem(item);
   };
+
+  const [activeItem, setActiveItem] = React.useState("");
+
+  // const handleClick = (item) => {
+  //   setActiveItem(item);
+  //   setOpen(!open);
+  // };
 
   return (
     <List
@@ -35,65 +43,144 @@ export default function NestedList() {
         width: "100%",
         maxWidth: 360,
         bgcolor: "background.paper",
-        fontSize: "1.3rem",
+        fontSize: "1.5rem",
       }}
       component="nav"
     >
       <NavLink end to="/dashboard">
-        <ListItemButton>
+        <ListItemButton
+          sx={{
+            color: activeItem === "" ? "red" : "inherit", // Change color to red if active, otherwise inherit
+          }}
+          selected={activeItem === ""}
+          onClick={() => setActiveItem("")}
+        >
           <ListItemIcon>
             <ImStatsBars2 />
           </ListItemIcon>
-          <ListItemText primary="Stats" />
+
+          <ListItemText
+            primary="Stats"
+            primaryTypographyProps={{
+              sx: { fontWeight: 800 },
+            }}
+          />
         </ListItemButton>
       </NavLink>
       <ListItemButton onClick={handleClick}>
         <ListItemIcon>
           <FaBorderAll />
         </ListItemIcon>
-        <ListItemText primary="Jobs" />
+        <ListItemText
+          primary="Jobs"
+          primaryTypographyProps={{
+            sx: { fontWeight: 800 },
+          }}
+        />
         {open ? <ExpandLess /> : <ExpandMore />}
       </ListItemButton>
       <Collapse in={open} timeout="auto" unmountOnExit>
         <List component="div" disablePadding>
           <NavLink to="/dashboard/all-jobs">
-            <ListItemButton sx={{ pl: 4 }}>
+            <ListItemButton
+              sx={{
+                color: activeItem === "/all-jobs" ? "red" : "inherit", // Change color to red if active, otherwise inherit
+                pl: 4,
+              }}
+              selected={activeItem === "/all-jobs"}
+              onClick={() => setActiveItem("/all-jobs")}
+            >
               <ListItemIcon>
                 <StarBorder />
               </ListItemIcon>
-              <ListItemText primary="All Jobs" />
+              <ListItemText
+                primary="All Jobs"
+                primaryTypographyProps={{
+                  sx: { fontWeight: 800 },
+                }}
+              />
             </ListItemButton>
           </NavLink>
           <NavLink to="/dashboard/add-job">
-            <ListItemButton sx={{ pl: 4 }}>
+            <ListItemButton
+              sx={{
+                color: activeItem === "/add-job" ? "red" : "inherit", // Change color to red if active, otherwise inherit
+                pl: 4,
+              }}
+              selected={activeItem === "/add-job"}
+              onClick={() => setActiveItem("/add-job")}
+            >
               <ListItemIcon>
                 <BookmarkAddIcon />
               </ListItemIcon>
-              <ListItemText primary="Add Job" />
+              <ListItemText
+                primary="Add Job"
+                primaryTypographyProps={{
+                  sx: { fontWeight: 800 },
+                }}
+              />
             </ListItemButton>
           </NavLink>
-          <ListItemButton sx={{ pl: 4 }} disabled={!isActive}>
+          <ListItemButton
+            disabled={!isActive}
+            sx={{
+              color: activeItem === "/edit-job" ? "red" : "inherit", // Change color to red if active, otherwise inherit
+              pl: 4,
+            }}
+            selected={activeItem === "/edit-job"}
+            onClick={() => setActiveItem("/edit-job")}
+          >
             <ListItemIcon>
               <LibraryBooksIcon />
             </ListItemIcon>
-            <ListItemText primary="Edit Job" />
+            <ListItemText
+              primary="Edit Job"
+              primaryTypographyProps={{
+                sx: { fontWeight: 800 },
+              }}
+            />
           </ListItemButton>
         </List>
       </Collapse>
       <NavLink to="/dashboard/profile">
-        <ListItemButton>
+        <ListItemButton
+          sx={{
+            color: activeItem === "/profile" ? "red" : "inherit", // Change color to red if active, otherwise inherit
+            pl: 4,
+          }}
+          selected={activeItem === "/profile"}
+          onClick={() => setActiveItem("/profile")}
+        >
           <ListItemIcon>
             <FaAddressCard />
           </ListItemIcon>
-          <ListItemText primary="Profile" />
+          <ListItemText
+            primary="Profile"
+            primaryTypographyProps={{
+              sx: { fontWeight: 800 },
+            }}
+          />
         </ListItemButton>
       </NavLink>
       <NavLink to="/dashboard/admin">
-        <ListItemButton disabled={!validUser}>
+        <ListItemButton
+          disabled={!validUser}
+          sx={{
+            color: activeItem === "/admin" ? "red" : "inherit", // Change color to red if active, otherwise inherit
+            pl: 4,
+          }}
+          selected={activeItem === "/admin"}
+          onClick={() => setActiveItem("/admin")}
+        >
           <ListItemIcon>
             <MdAdminPanelSettings />
           </ListItemIcon>
-          <ListItemText primary="Admin" />
+          <ListItemText
+            primary="Admin"
+            primaryTypographyProps={{
+              sx: { fontWeight: 800 },
+            }}
+          />
         </ListItemButton>
       </NavLink>
     </List>
