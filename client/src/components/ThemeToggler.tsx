@@ -11,11 +11,11 @@ export default function ThemeToggler() {
       {ctx.isDarkTheme ? (
         <>
           <Button
-            variant="text"
+            variant="contained"
             startIcon={<LightModeIcon sx={{ fontSize: "1.5rem" }} />}
             color="secondary"
           >
-            <Typography variant="subtitle2" fontWeight={800}>
+            <Typography variant="subtitle2" fontWeight={300}>
               Light
             </Typography>
           </Button>
@@ -23,10 +23,11 @@ export default function ThemeToggler() {
       ) : (
         <>
           <Button
-            variant="text"
+            variant="contained"
+            color="info"
             startIcon={<DarkModeIcon sx={{ fontSize: "1.5rem" }} />}
           >
-            <Typography variant="subtitle2" fontWeight={800}>
+            <Typography variant="subtitle2" fontWeight={300}>
               Dark
             </Typography>
           </Button>

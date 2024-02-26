@@ -8,15 +8,16 @@ const AddressSchema = new mongoose.Schema({
   zipCode: { type: Number, default: null },
 });
 
+
 const UserSchema = new mongoose.Schema({
   firstName: String,
   lastName: String,
   email: String,
   password: String,
-  age: { type: String, default: null },
+  age: { type: String, default: "00" },
   DOB: { type: String, default: "06-20-96" },
   address: AddressSchema,
-  phoneNumber: { type: String, default: "09690243355" },
+  phoneNumber: { type: String, default: "09XXXXXXXXX" },
   gender: {
     type: String,
     enum: Object.values(USER_GENDER),
@@ -35,6 +36,12 @@ const UserSchema = new mongoose.Schema({
     type: String,
     enum: Object.values(USER_ROLE),
     default: USER_ROLE.ADMIN,
+  },
+  avatar: {
+    type: String,
+  },
+  avatarPublicId: {
+    type: String,
   },
 });
 

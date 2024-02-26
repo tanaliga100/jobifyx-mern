@@ -5,7 +5,7 @@ interface IInputs {
   name: string;
   type: string;
   label: string;
-  placeholder: string;
+  placeholder?: string;
   defaultValue?: string | number;
 }
 
