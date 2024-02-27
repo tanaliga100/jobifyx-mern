@@ -35,6 +35,16 @@ export interface AuthenticatedRequest extends Request {
   };
 }
 
+export interface FileUploaded extends Request {
+  avatar: {
+    lastModified: number;
+    lastModifiedDate: string;
+    name: string;
+    size: string | number;
+    type: string;
+  };
+}
+
 export interface UserPayload {
   userId: string;
   role: string;

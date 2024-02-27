@@ -3,6 +3,8 @@ import { Link, useRouteError } from "react-router-dom";
 
 const Error = () => {
   const error = useRouteError() as Error;
+  console.log(error);
+
   // eslint-disable-next-line @typescript-eslint/no-explicit-any
   const errorMessage = (error && error.message) || (error as any);
 

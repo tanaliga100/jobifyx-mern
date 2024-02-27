@@ -8,14 +8,12 @@ const AddressSchema = new mongoose.Schema({
   zipCode: { type: Number, default: null },
 });
 
-
 const UserSchema = new mongoose.Schema({
   firstName: String,
   lastName: String,
   email: String,
   password: String,
   age: { type: String, default: "00" },
-  DOB: { type: String, default: "06-20-96" },
   address: AddressSchema,
   phoneNumber: { type: String, default: "09XXXXXXXXX" },
   gender: {
@@ -23,10 +21,7 @@ const UserSchema = new mongoose.Schema({
     enum: Object.values(USER_GENDER),
     default: USER_GENDER.OTHER,
   },
-  occupation: {
-    type: String,
-    default: "Software Engineer",
-  },
+
   nationality: {
     type: String,
     default: "Filipino",

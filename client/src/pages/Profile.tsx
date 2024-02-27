@@ -11,15 +11,53 @@ import {
   Typography,
 } from "@mui/material";
 import { useState } from "react";
-import { Form, Link, useNavigation, useOutletContext } from "react-router-dom";
+import toast from "react-hot-toast";
+import {
+  Form,
+  Link,
+  redirect,
+  useNavigation,
+  useOutletContext,
+} from "react-router-dom";
 import { USER_GENDER, USER_ROLE } from "../../../src/utils/constants";
 import FormRow from "../components/FormRow";
 import { default as Header } from "../components/Header";
+import { customFetch } from "../utils/custom-fetch";
+
+// eslint-disable-next-line react-refresh/only-export-components
+export const editProfileAction = async ({ request }: { request: Request }) => {
+  const formData = await request.formData();
+  // eslint-disable-next-line @typescript-eslint/no-explicit-any
+  const file = formData.get("avatar") as any;
+  if (file && file.size > 500000) {
+    toast.error("Image size too large !");
+    return null;
+  }
+  const data = Object.fromEntries(formData);
+  console.log("data to be sent", data);
+
+  // get the image file
+  // eslint-disable-next-line @typescript-eslint/no-explicit-any
+  // console.log("data", data);
+
+  try {
+    const res = await customFetch.patch("/users/update-user", data);
+    console.log(res);
+
+    toast.loading("User Updated", {
+      duration: 1000,
+    });
+    return redirect("/dashboard/profile");
+  } catch (error) {
+    console.log(error);
+
+    return null;
+  }
+};
 
 const Profile = () => {
   // eslint-disable-next-line @typescript-eslint/no-explicit-any
   const { user } = useOutletContext() as any;
-  console.log("loggedUser", user.profile);
 
   const navigation = useNavigation();
   const isSubmitting = navigation.state === "submitting";
@@ -36,16 +74,17 @@ const Profile = () => {
           </Button>
         </Link>
       </Box>
-      <Form method="post">
+      <Form method="post" encType="multipart/form-data">
         <Box
           sx={{
             "& .MuiTextField-root": { mr: 2, my: 2, width: "25ch" },
           }}
         >
-          <Stack sx={{ pb: 2 }}>
+          <Stack sx={{ pb: 2 }} maxWidth={300}>
             <Typography variant="caption">Select an image file</Typography>
-            <input type="file" id="" name="avatar" />
+            <input type="file" name="avatar" />
           </Stack>
+          {/* <FormRow type="file" name="avatar" /> */}
           <FormRow
             type="text"
             name="firstName"
@@ -59,10 +98,10 @@ const Profile = () => {
             defaultValue={user.profile.lastName}
           />
           <FormRow
-            type="text"
-            name="occupation"
-            label="Occupation"
-            defaultValue={user.profile.occupation}
+            type="email"
+            name="email"
+            label="Email"
+            defaultValue={user.profile.email}
           />
 
           <FormRow

@@ -56,11 +56,14 @@ app.get("/api/v1/test", (req: Request, res: Response) => {
   });
 });
 
-app.get("/api/v1", (req: Request, res: Response) => {
-  return res.status(200).json({
-    msg: "TEST ROUTE",
-  });
-});
+// const upload = multer({ dest: "uploads/" }).single("avatar");
+
+// app.post("/api/v1/upload", upload, (req: Request, res: Response) => {
+//   console.log("files", req.file);
+//   res.status(200).json({
+//     msg: "Uploaded Successfully",
+//   });
+// });
 
 // app.post("/:id", validateTest, (req: Request, res: Response) => {
 //   const { name } = req.body;

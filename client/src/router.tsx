@@ -9,7 +9,7 @@ import EditJob, { editJobAction, editJobLoader } from "./pages/EditJob";
 import Error from "./pages/Error";
 import Landing from "./pages/Landing";
 import Login, { actionLogin } from "./pages/Login";
-import Profile from "./pages/Profile";
+import Profile, { editProfileAction } from "./pages/Profile";
 import Register, { actionRegister } from "./pages/Register";
 import Stats from "./pages/Stats";
 
@@ -65,6 +65,7 @@ export const router = createBrowserRouter([
           {
             path: "profile",
             element: <Profile />,
+            action: editProfileAction,
           },
           {
             path: "admin",

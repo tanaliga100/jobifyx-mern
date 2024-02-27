@@ -5,11 +5,8 @@ import { customFetch } from "../utils/custom-fetch";
 
 // eslint-disable-next-line @typescript-eslint/no-explicit-any, react-refresh/only-export-components
 export const deleteJobAction = async (params: any) => {
-  console.log("params", params.params.id);
-
   try {
     const res = await customFetch.delete(`/jobs/${params.params.id}`);
-    console.log("delete res", res);
     toast.success(res.data.msg, {
       duration: 1000,
     });

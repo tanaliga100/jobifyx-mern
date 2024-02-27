@@ -150,6 +150,7 @@ export const validateLoginInput = withValidationErrors([
 ]);
 
 export const validateUpdateUserInput = withValidationErrors([
+  body("avatar"),
   body("firstName")
     .notEmpty()
     .withMessage("FirstNAme is required")
@@ -169,9 +170,7 @@ export const validateUpdateUserInput = withValidationErrors([
     .isEmail()
     .withMessage("Invalid Email Format")
     .custom(async (email: any, { req }) => {
-      console.log("VALIDATION_lOGGER", req);
       const user = await User.findOne({ email });
-      console.log("EXISTS", user);
       if (user && user._id.toString() !== req.user.userId) {
         throw new BadRequestError("Email already exists ! ");
       }
@@ -181,19 +180,18 @@ export const validateUpdateUserInput = withValidationErrors([
   //   .withMessage("Password must be 8 characters long")
   //   .trim(),
   body("age").notEmpty().withMessage("Age is required").trim(),
-  body("DOB")
-    .isString()
-    .notEmpty()
-    .withMessage("Date of Birth is required")
-    .isLength({ min: 5, max: 50 })
-    .trim(),
-  body("address.addressLine").isString().trim(),
-  body("address.state").isString().trim(),
-  body("address.country").isString().trim(),
-  body("address.zipCode").isNumeric().trim(),
+  // body("DOB")
+  //   .isString()
+  //   .notEmpty()
+  //   .withMessage("Date of Birth is required")
+  //   .isLength({ min: 5, max: 50 })
+  //   .trim(),
+  // body("address.addressLine").isString().trim(),
+  // body("address.state").isString().trim(),
+  // body("address.country").isString().trim(),
+  // body("address.zipCode").isNumeric().trim(),
   body("phoneNumber").isString().trim(),
   body("gender").isString().trim(),
-  body("occupation").isString().trim(),
   body("nationality").isString().trim(),
   body("role").isString().trim(),
 ]);

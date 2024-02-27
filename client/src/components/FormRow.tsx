@@ -4,7 +4,7 @@ import { useState } from "react";
 interface IInputs {
   name: string;
   type: string;
-  label: string;
+  label?: string;
   placeholder?: string;
   defaultValue?: string | number;
 }

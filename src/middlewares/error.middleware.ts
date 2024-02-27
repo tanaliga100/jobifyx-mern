@@ -9,8 +9,6 @@ export const errorHandlerMiddleware = (
   req: Request,
   next: NextFunction
 ) => {
-  console.log("MIDDLEWARE", err);
-
   if (err instanceof AppError) {
     return res.status(err.statusCode).json({
       status: "error",

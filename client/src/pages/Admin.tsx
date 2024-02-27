@@ -12,7 +12,7 @@ export const adminLoaders = async () => {
   try {
     const res = await customFetch.get(`/admin/dashboard`);
     const { obj, msg } = res.data;
-    toast.success("ADMIN PAGE", {
+    toast.success("ADMIN", {
       duration: 1000,
     });
     return { obj, msg };
