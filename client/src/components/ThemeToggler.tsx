@@ -1,14 +1,18 @@
+import { useTheme } from "@emotion/react";
 import DarkModeIcon from "@mui/icons-material/DarkMode";
 import LightModeIcon from "@mui/icons-material/LightMode";
 import { Box, Button, Typography } from "@mui/material";
 import { useDashboardContext } from "../layout/DashboardLayout";
 
 export default function ThemeToggler() {
+  const theme = useTheme();
+  console.log("theme", theme);
+
   // eslint-disable-next-line @typescript-eslint/no-explicit-any
   const ctx = useDashboardContext() as any;
   return (
     <Box onClick={ctx.toggleTheme}>
-      {ctx.isDarkTheme ? (
+      {ctx.mode === "light" ? (
         <>
           <Button
             variant="contained"

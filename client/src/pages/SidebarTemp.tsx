@@ -48,7 +48,6 @@ export default function NestedList() {
         }}
         component="nav"
       >
-      
         <NavLink end to="/dashboard">
           <ListItemButton
             sx={{
@@ -69,6 +68,7 @@ export default function NestedList() {
             />
           </ListItemButton>
         </NavLink>
+        {/* JOBS  */}
         <ListItemButton onClick={handleClick}>
           <ListItemIcon>
             <FaBorderAll />
@@ -126,11 +126,12 @@ export default function NestedList() {
             <ListItemButton
               disabled={!isActive}
               sx={{
-                color: activeItem === "/edit-job" ? "red" : "inherit", // Change color to red if active, otherwise inherit
+                color: isActive ? "red" : "inherit", // Change color to red if active, otherwise inherit
                 pl: 4,
               }}
               selected={activeItem === "/edit-job"}
               onClick={() => setActiveItem("/edit-job")}
+              // onClick={() => handleClick("/edit-job")} // Pass the correct route
             >
               <ListItemIcon>
                 <LibraryBooksIcon />
@@ -144,6 +145,9 @@ export default function NestedList() {
             </ListItemButton>
           </List>
         </Collapse>
+
+        {/* USERS  */}
+
         <NavLink to="/dashboard/profile">
           <ListItemButton
             sx={{

@@ -12,6 +12,7 @@ import Header from "../components/Header";
 
 import UpgradeIcon from "@mui/icons-material/Upgrade";
 import { FormControl, InputLabel, MenuItem, Select } from "@mui/material";
+import { useState } from "react";
 import toast from "react-hot-toast";
 import { JOB_STATUS, JOB_TYPE } from "../../../src/utils/constants";
 import { customFetch } from "../utils/custom-fetch";
@@ -67,8 +68,8 @@ const EditJob = () => {
 
   // eslint-disable-next-line react-hooks/rules-of-hooks
 
-  // const [type, setType] = useState("");
-  // const [status, setStatus] = useState("");
+  const [type, setType] = useState<string | null>(jobType);
+  const [status, setStatus] = useState<string | null>(jobStatus);
 
   const navigation = useNavigation();
 
@@ -134,11 +135,12 @@ const EditJob = () => {
               <Select
                 labelId="demo-simple-select-autowidth-label"
                 id="demo-simple-select-autowidth"
-                value={jobType}
+                value={type}
                 autoWidth
                 name="jobType"
                 label="Job Type"
                 color="success"
+                onChange={(e) => setType(e.target.value)}
               >
                 {Object.values(JOB_TYPE).map(
                   (
@@ -162,12 +164,13 @@ const EditJob = () => {
               <Select
                 labelId="demo-simple-select-autowidth-label"
                 id="demo-simple-select-autowidth"
-                value={jobStatus}
+                value={status}
                 autoWidth
                 name="jobStatus"
                 defaultValue="pending"
                 label="Job Status"
                 color="success"
+                onChange={(e) => setStatus(e.target.value)}
               >
                 {Object.values(JOB_STATUS).map(
                   (

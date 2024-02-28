@@ -26,6 +26,7 @@ const DashboardContext = createContext({});
 export interface IUser {
   msg: string;
   profile: {
+    avatar?: string;
     DOB: string;
     age: null;
     email: string;
@@ -42,10 +43,12 @@ export interface IUser {
 const DashboardLayout = () => {
   const navigate = useNavigate();
   const user = useLoaderData() as unknown;
+  // const theme = useTheme();
 
-  const [isDarkTheme, setIsDarkTheme] = useState<boolean>(false);
+  // eslint-disable-next-line @typescript-eslint/no-explicit-any
+  const [mode, setMode] = useState("light") as any;
   const toggleTheme = () => {
-    setIsDarkTheme(!isDarkTheme);
+    setMode((prev: string) => (prev === "light" ? "dark" : "light"));
   };
   const logoutUser = async () => {
     await customFetch.get("/auth/logout");
@@ -61,7 +64,7 @@ const DashboardLayout = () => {
     <DashboardContext.Provider
       value={{
         user,
-        isDarkTheme,
+        mode,
         toggleTheme,
         logoutUser,
       }}
@@ -73,13 +76,13 @@ const DashboardLayout = () => {
           </Box>
           <Container
             maxWidth="xl"
-            sx={{ display: "flex", gap: 1, height: "80dvh" }}
+            sx={{ display: "flex", gap: 4, height: "80dvh" }}
           >
             <Grid item xs={2}>
               {/* LEFT SIDE  */}
               <NestedList />
             </Grid>
-            <Grid item xs={9.5}>
+            <Grid item xs={10}>
               {/* RIGHT SIDE  */}
               <Outlet context={{ user }} />
             </Grid>

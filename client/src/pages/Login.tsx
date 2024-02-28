@@ -7,7 +7,7 @@ import {
   Form,
   Link,
   redirect,
-  useActionData,
+  useNavigate,
   useNavigation,
 } from "react-router-dom";
 import FormRow from "../components/FormRow";
@@ -55,15 +55,31 @@ interface Err {
 }
 
 const Login = () => {
+  const navigate = useNavigate();
   const navigation = useNavigation();
   const isSubmitting = navigation.state === "submitting";
-  const errors = useActionData() as Err;
+  // const errors = useActionData() as Err;
+
+  const loginDemoUser = async () => {
+    const data = {
+      email: "test@mail.com",
+      password: "secret",
+    };
+    try {
+      await customFetch.post("/auth/login", data);
+      toast.success("Take a test drive");
+      return navigate("/dashboard");
+    } catch (error) {
+      console.log(error);
+      return;
+    }
+  };
 
   return (
     <Container
       fixed
       sx={{
-        width: "30dvw",
+        width: "100dvw",
         height: "100dvh",
         display: "grid",
         placeItems: "center",
@@ -93,7 +109,6 @@ const Login = () => {
             sx={{ display: "flex", alignItems: "center", gap: 1 }}
           >
             <TbPasswordUser size={20} />
-
             <FormRow
               label="Password"
               placeholder="Enter Password"
@@ -122,21 +137,19 @@ const Login = () => {
             xs={3}
             sx={{ display: "flex", alignItems: "center", gap: 1 }}
           >
-            <Link to="/dashboard">
-              <Button
-                variant="contained"
-                fullWidth
-                type="submit"
-                size="small"
-                color="primary"
-                sx={{ bgcolor: "seagreen" }}
-              >
-                Demo User
-              </Button>
-            </Link>
+            {/* <Button
+              variant="contained"
+              fullWidth
+              type="submit"
+              size="small"
+              color="primary"
+              sx={{ bgcolor: "seagreen" }}
+              onClick={loginDemoUser}
+            >
+              Demo User
+            </Button> */}
           </Grid>
         </Grid>
-
         <Typography variant="body1" fontSize={15} textAlign="center">
           {" "}
           Dont have an account ? Please {"   "}

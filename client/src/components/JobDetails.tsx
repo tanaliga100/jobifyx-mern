@@ -1,18 +1,9 @@
-import {
-  Box,
-  Button,
-  Chip,
-  IconButton,
-  Modal,
-  Paper,
-  Typography,
-} from "@mui/material";
+import { Box, Button, Chip, Modal, Paper, Typography } from "@mui/material";
 import Card from "@mui/material/Card";
 import CardActions from "@mui/material/CardActions";
 import CardContent from "@mui/material/CardContent";
 
 import AllOutIcon from "@mui/icons-material/AllOut";
-import ControlCameraIcon from "@mui/icons-material/ControlCamera";
 import DeleteIcon from "@mui/icons-material/Delete";
 import day from "dayjs";
 import advancedFormat from "dayjs/plugin/advancedFormat";
@@ -126,8 +117,7 @@ export default function JobDetails(job: IProps | any) {
             <Box
               sx={{
                 display: "grid",
-                gridTemplateColumns: "repeat(4, 1fr)",
-                placeItems: "center",
+                gridTemplateColumns: "repeat(2, 1fr)",
               }}
             >
               <Paper
@@ -149,9 +139,6 @@ export default function JobDetails(job: IProps | any) {
                 <Typography variant="overline" fontWeight={600}>
                   {job.position}
                 </Typography>
-                <IconButton>
-                  <ControlCameraIcon />
-                </IconButton>
               </Paper>
               <Paper
                 elevation={1}
@@ -171,9 +158,6 @@ export default function JobDetails(job: IProps | any) {
                 <Typography variant="overline" fontWeight={600}>
                   {job.jobStatus}
                 </Typography>
-                <IconButton>
-                  <ControlCameraIcon />
-                </IconButton>
               </Paper>
               <Paper
                 elevation={1}
@@ -193,9 +177,6 @@ export default function JobDetails(job: IProps | any) {
                 <Typography variant="overline" fontWeight={600}>
                   {job.jobLocation}
                 </Typography>
-                <IconButton>
-                  <ControlCameraIcon />
-                </IconButton>
               </Paper>{" "}
               <Paper
                 elevation={1}
@@ -215,9 +196,6 @@ export default function JobDetails(job: IProps | any) {
                 <Typography variant="overline" fontWeight={600}>
                   {job.jobType}
                 </Typography>
-                <IconButton>
-                  <ControlCameraIcon />
-                </IconButton>
               </Paper>
             </Box>
             <Box
@@ -236,7 +214,11 @@ export default function JobDetails(job: IProps | any) {
                 label="Edit"
               />
               <ActionButton icon={<DeleteIcon />} url="#" label="Delete" /> */}
-              <Link to={`/dashboard/edit-job/${job._id}`}>Edit</Link>
+              <Link to={`/dashboard/edit-job/${job._id}`}>
+                <Button variant="contained" color="warning">
+                  Edit
+                </Button>
+              </Link>
               <Form method="post" action={`/dashboard/delete-job/${job._id}`}>
                 <Button
                   type="submit"
@@ -244,7 +226,7 @@ export default function JobDetails(job: IProps | any) {
                   color="error"
                   startIcon={<DeleteIcon />}
                 >
-                  Dele
+                  Delete
                 </Button>
               </Form>
             </Box>

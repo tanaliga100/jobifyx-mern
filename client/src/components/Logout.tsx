@@ -11,7 +11,11 @@ import {
 import { IContext, useDashboardContext } from "../layout/DashboardLayout";
 const Logout = () => {
   const data = useDashboardContext() as IContext;
+
+  console.log("ctx", data);
+
   const initial = data.user.profile.firstName.slice(0, 1);
+  const avatarImage = data.user?.profile?.avatar;
 
   return (
     <Button size="small" color="success" onClick={() => data.logoutUser()}>
@@ -25,11 +29,17 @@ const Logout = () => {
             gap: 1,
           }}
         >
-          <Avatar
-            sx={{ width: 20, height: 20, bgcolor: "#37B5B6" }}
-            alt="Jordan Tanaliga"
-            src={initial}
-          />
+          {data?.user.profile.avatar ? (
+            <Avatar
+              sx={{ width: 40, height: 40, bgcolor: "#37B5B6" }}
+              src={avatarImage}
+            />
+          ) : (
+            <Avatar
+              sx={{ width: 40, height: 40, bgcolor: "#37B5B6" }}
+              src={initial}
+            />
+          )}
           <Typography variant="body1" fontSize={10} fontWeight={100}>
             {data.user && data.user.profile.firstName}
           </Typography>

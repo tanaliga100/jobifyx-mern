@@ -1,9 +1,10 @@
+import { v2 as cloudinary } from "cloudinary";
 import cookieParser from "cookie-parser";
+
 import dotenv from "dotenv";
 import express, { Express, NextFunction, Request, Response } from "express";
 import { StatusCodes } from "http-status-codes";
 import morgan from "morgan";
-import multer from "multer";
 import path from "path";
 import { connectDb } from "./config";
 import {
@@ -42,6 +43,12 @@ if (process.env.NODE_ENV === "development") {
   app.use(morgan("dev"));
 }
 
+cloudinary.config({
+  cloud_name: process.env.CLOUD_NAME,
+  api_key: process.env.CLOUDINARY_KEY,
+  api_secret: process.env.CLOUDINARY_SECRET,
+});
+
 // ROUTES
 // app.post("/", validateTest, (req: Request, res: Response) => {
 //   const { name } = req.body;
@@ -57,14 +64,14 @@ app.get("/api/v1/test", (req: Request, res: Response) => {
   });
 });
 
-const upload = multer({ dest: "uploads/" }).single("avatar");
+// const upload = multer({ dest: "uploads/" }).single("avatar");
 
-app.post("/api/v1/upload", upload, (req: Request, res: Response) => {
-  console.log("files", req.file);
-  res.status(200).json({
-    msg: "Uploaded Successfully",
-  });
-});
+// app.post("/api/v1/upload", upload, (req: Request, res: Response) => {
+//   console.log("files", req.file);
+//   res.status(200).json({
+//     msg: "Uploaded Successfully",
+//   });
+// });
 
 // app.post("/:id", validateTest, (req: Request, res: Response) => {
 //   const { name } = req.body;
@@ -119,6 +126,7 @@ const start = async () => {
   try {
     // db connection here...
     await connectDb(process.env.MONGO_URI as string);
+
     app.listen(port, () => {
       console.log(`CONNECTED !!! : Server is Fire at http://localhost:${port}`);
     });
@@ -127,3 +135,4 @@ const start = async () => {
   }
 };
 start();
+console.log(process.env.NODE_ENV);

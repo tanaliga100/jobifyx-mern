@@ -11,7 +11,7 @@ export const GET_ALL_JOBS = async (
 ) => {
   console.log("TOKEN_PAYLOAD", req.user);
 
-  const allJobs = await Job.find({ createdBy: req.user.userId });
+  const allJobs = await Job.find({});
   res
     .status(StatusCodes.OK)
     .json({ msg: "JOBS", length: allJobs.length, jobs: allJobs });

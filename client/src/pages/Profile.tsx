@@ -9,7 +9,6 @@ import {
   MenuItem,
   Select,
   Stack,
-  Typography,
 } from "@mui/material";
 import React, { useState } from "react";
 import toast from "react-hot-toast";
@@ -34,12 +33,15 @@ export const editProfileAction = async ({ request }: { request: any }) => {
     toast.error("Image size too large !");
     return null;
   }
+
   // get the image file
   // eslint-disable-next-line @typescript-eslint/no-explicit-any
   try {
     const res = await customFetch.patch("/users/update-user", formData);
-
-    toast.loading(res.data.msg, {
+    toast.loading("Uploading...", {
+      duration: 1000,
+    });
+    toast.success(res.data.msg, {
       duration: 2000,
     });
     return redirect("/dashboard/profile");
@@ -52,6 +54,8 @@ export const editProfileAction = async ({ request }: { request: any }) => {
 const Profile = () => {
   // eslint-disable-next-line @typescript-eslint/no-explicit-any
   const { user } = useOutletContext() as any;
+
+  console.log("prof", user);
 
   const navigation = useNavigation();
   const isSubmitting = navigation.state === "submitting";
@@ -87,27 +91,24 @@ const Profile = () => {
       </Box>
       <Box
         sx={{
-          "& .MuiTextField-root": { mr: 2, my: 2, width: "25ch" },
+          "& .MuiTextField-root": { mr: 2, py: 1.5, width: "25ch" },
         }}
       >
-        <Box sx={{ p: 2 }}>
-          {previewImage && (
-            <>
-              <Avatar
-                alt="Avatar"
-                src={previewImage}
-                sx={{ width: 60, height: 60 }}
-              />
-            </>
-          )}
+        <Box sx={{ p: 1 }}>
+          <Avatar
+            alt="Avatar"
+            src={user.profile.avatar || previewImage}
+            sx={{ width: 50, height: 50 }}
+          />
         </Box>
         <Stack sx={{ pb: 2 }} maxWidth={300}>
-          <Typography variant="caption">
-            {previewImage ? "Image Preview" : "Select an Image "}
-          </Typography>
+          {/* <Typography variant="caption" py={1}>
+            {!previewImage ? "Upload New Image" : "Select Image"}
+          </Typography> */}
           <input
             type="file"
             name="avatar"
+            // placeholder={previewImage ? "Upload New Image" : "Select Image"}
             accept="image/*" // Specify to accept only image files
             onChange={handleFileChange}
           />

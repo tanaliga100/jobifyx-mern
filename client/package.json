@@ -10,10 +10,12 @@
     "preview": "vite preview"
   },
   "dependencies": {
-    "@emotion/react": "^11.11.3",
+    "@emotion/react": "^11.11.4",
     "@emotion/styled": "^11.11.0",
+    "@fontsource/inter": "^5.0.16",
+    "@fontsource/roboto": "^5.0.8",
     "@mui/icons-material": "^5.15.6",
-    "@mui/material": "^5.15.5",
+    "@mui/material": "^5.15.11",
     "@mui/x-data-grid": "^6.19.3",
     "axios": "^1.6.7",
     "dayjs": "^1.11.10",
