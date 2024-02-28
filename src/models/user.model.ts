@@ -14,14 +14,12 @@ const UserSchema = new mongoose.Schema({
   email: String,
   password: String,
   age: { type: String, default: "00" },
-  address: AddressSchema,
   phoneNumber: { type: String, default: "09XXXXXXXXX" },
   gender: {
     type: String,
     enum: Object.values(USER_GENDER),
     default: USER_GENDER.OTHER,
   },
-
   nationality: {
     type: String,
     default: "Filipino",

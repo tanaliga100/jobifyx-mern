@@ -19,7 +19,6 @@ import { customFetch } from "../utils/custom-fetch";
 // eslint-disable-next-line react-refresh/only-export-components
 export const editJobLoader = async ({
   // eslint-disable-next-line @typescript-eslint/no-unused-vars
-  request,
   params,
 }: {
   request: Request;

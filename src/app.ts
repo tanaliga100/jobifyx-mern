@@ -3,6 +3,7 @@ import dotenv from "dotenv";
 import express, { Express, NextFunction, Request, Response } from "express";
 import { StatusCodes } from "http-status-codes";
 import morgan from "morgan";
+import multer from "multer";
 import path from "path";
 import { connectDb } from "./config";
 import {
@@ -56,14 +57,14 @@ app.get("/api/v1/test", (req: Request, res: Response) => {
   });
 });
 
-// const upload = multer({ dest: "uploads/" }).single("avatar");
+const upload = multer({ dest: "uploads/" }).single("avatar");
 
-// app.post("/api/v1/upload", upload, (req: Request, res: Response) => {
-//   console.log("files", req.file);
-//   res.status(200).json({
-//     msg: "Uploaded Successfully",
-//   });
-// });
+app.post("/api/v1/upload", upload, (req: Request, res: Response) => {
+  console.log("files", req.file);
+  res.status(200).json({
+    msg: "Uploaded Successfully",
+  });
+});
 
 // app.post("/:id", validateTest, (req: Request, res: Response) => {
 //   const { name } = req.body;

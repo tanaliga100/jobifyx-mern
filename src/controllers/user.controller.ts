@@ -33,9 +33,9 @@ const UPDATE_USER = async (
   // console.log("BODY", req.body, req.file);
   // console.log("AVATAR", req.file);
 
-  // delete obj.password;
-  // delete obj.role;
-  // const newUser = await User.findByIdAndUpdate(req.user.userId, obj);
-  res.status(StatusCodes.OK).json({ msg: "User Updated", file: req.file });
+  delete obj.password;
+  delete obj.role;
+  const newUser = await User.findByIdAndUpdate(req.user.userId, obj);
+  res.status(StatusCodes.OK).json({ msg: "User Updated", newUser });
 };
 export { ALL_USERS, CURRENT_USER, UPDATE_USER };
