@@ -136,3 +136,63 @@ const start = async () => {
 };
 start();
 console.log(process.env.NODE_ENV);
+
+
+const num = [1, 2, 3, 4, 5];
+const newNum = num.map(function (num: number) {
+  console.log(num);
+  
+  if (num == 2) {
+    return num * 2
+  }
+  return 0;
+})
+console.log('NEW', newNum);
+
+
+const isStart = true;
+const isLoading = false;
+const res = isStart ? isLoading ? "yes" : "no" : "yes"
+
+console.log('res', res);
+
+const num1 = +"1";
+const num2 = +"2";
+
+const result = num1 + num2;
+console.log('ressut', result);
+
+
+const numbers = [1, 2, 3, 4, 5, 6, 7, 8, 9, 10];
+const target = 10;
+const pairs = []
+
+for (let i = 0; i <= numbers.length; i++) {
+  console.log('iiiiis', i);
+   for (let j = i + 1; j <= numbers.length; j++) {
+   console.log('jsss', j);
+     if (numbers[i] + numbers[j] === target) {
+       pairs.push([numbers[i], numbers[j]]);
+   }
+}
+}
+console.log('Pairs:', pairs);
+
+
+// const numbers = [1, 2, 3, 4, 5, 6, 7, 8, 9, 10];
+// const targetSum = 10;
+
+// const pairs:any = [];
+
+// numbers.forEach((num, index) => {
+//   // NUM is the value in the array;
+//     const complement = targetSum - num;
+//   const foundIndex = numbers.findIndex((n, i) => 
+
+//     i !== index && n === complement  );
+//     if (foundIndex !== -1) {
+//         pairs.push([num, numbers[foundIndex]]);
+//     }
+// });
+
+// console.log('Pairs:', pairs);
