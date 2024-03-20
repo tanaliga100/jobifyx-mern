@@ -1,15 +1,16 @@
-import { Button, Container, Grid, Typography } from "@mui/material";
+import {
+  Button,
+  Container,
+  Grid,
+  IconButton,
+  Tooltip,
+  Typography,
+} from "@mui/material";
 import { AxiosResponse } from "axios";
 import toast from "react-hot-toast";
 import { MdAlternateEmail } from "react-icons/md";
 import { TbPasswordUser } from "react-icons/tb";
-import {
-  Form,
-  Link,
-  redirect,
-  useNavigate,
-  useNavigation,
-} from "react-router-dom";
+import { Form, Link, redirect, useNavigation } from "react-router-dom";
 import FormRow from "../components/FormRow";
 import Header from "../components/Header";
 import { customFetch } from "../utils/custom-fetch";
@@ -19,14 +20,14 @@ export const actionLogin = async ({ request }: { request?: Request }) => {
   const formData = await request!.formData();
   const data = Object.fromEntries(formData);
 
-  const errors: Err = { msg: "" };
-  if (typeof data.password === "string" && data.password.length <= 5) {
-    errors.msg = "Password too short";
-    toast.error(errors.msg, {
-      duration: 500,
-    });
-    return errors;
-  }
+  // const errors: Err = { msg: "" };
+  // if (typeof data.password === "string" && data.password.length <= 5) {
+  //   errors.msg = "Password too short";
+  //   toast.error(errors.msg, {
+  //     duration: 500,
+  //   });
+  //   return errors;
+  // }
   // submission here...
   try {
     const response: AxiosResponse<{ msg: string }> = await customFetch.post(
@@ -50,30 +51,30 @@ export const actionLogin = async ({ request }: { request?: Request }) => {
     return error;
   }
 };
-interface Err {
-  msg?: string;
-}
+// interface Err {
+//   msg?: string;
+// }
 
 const Login = () => {
-  const navigate = useNavigate();
+  // const navigate = useNavigate();
   const navigation = useNavigation();
   const isSubmitting = navigation.state === "submitting";
   // const errors = useActionData() as Err;
+  //     const res = await customFetch.post("/auth/login", data);
+  //     console.log("res", res);
 
-  const loginDemoUser = async () => {
-    const data = {
-      email: "test@mail.com",
-      password: "secret",
-    };
-    try {
-      await customFetch.post("/auth/login", data);
-      toast.success("Take a test drive");
-      return navigate("/dashboard");
-    } catch (error) {
-      console.log(error);
-      return;
-    }
-  };
+  const data = `EMAIL: john@mail.com + PASSWORD: secret`;
+
+  // const loginDemoUser = async () => {
+  //   try {
+  //     toast.success("Take a test drive", {
+  //       duration: 2000,
+  //     });
+  //     navigate("/dashboard");
+  //   } catch (error) {
+  //     console.log(error);
+  //   }
+  // };
 
   return (
     <Container
@@ -137,17 +138,14 @@ const Login = () => {
             xs={3}
             sx={{ display: "flex", alignItems: "center", gap: 1 }}
           >
-            {/* <Button
-              variant="contained"
-              fullWidth
-              type="submit"
-              size="small"
-              color="primary"
-              sx={{ bgcolor: "seagreen" }}
-              onClick={loginDemoUser}
-            >
-              Demo User
-            </Button> */}
+            <Tooltip title={data}>
+              <IconButton>
+                <Typography alignItems="center" justifyContent="center">
+                  Want a test drive ??
+                </Typography>
+                <AccessibilityNewIcon sx={{ ml: 3 }} />
+              </IconButton>
+            </Tooltip>
           </Grid>
         </Grid>
         <Typography variant="body1" fontSize={15} textAlign="center">
@@ -165,3 +163,5 @@ const Login = () => {
 };
 
 export default Login;
+
+import AccessibilityNewIcon from "@mui/icons-material/AccessibilityNew";

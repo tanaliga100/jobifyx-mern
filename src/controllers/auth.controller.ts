@@ -35,6 +35,8 @@ export const LOGIN = async (
   // LOOK IF ITS EXIST
   const user = await User.findOne({ email: req.body.email });
 
+  console.log("user", user?.firstName);
+
   if (!user) {
     throw new UnAuthenticatedError(
       `Invalid Credentials || Email doesn't exist`
@@ -64,7 +66,10 @@ export const LOGIN = async (
     expires: new Date(Date.now() + oneDay),
     secure: process.env.NODE_ENV === "production",
   });
-  res.status(StatusCodes.OK).json({ msg: "User Logged In", status: "success" });
+  res.status(StatusCodes.OK).json({
+    msg: `Welcome, ${user.firstName?.toUpperCase()}`,
+    status: "success",
+  });
 };
 
 export const LOGOUT = async (

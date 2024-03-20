@@ -92,12 +92,12 @@ app.use("/api/v1/users", authenticateMiddleware, UserRoute); // done
 app.use("/api/v1/jobs", authenticateMiddleware, JobRoute);
 
 // MIDDLEWARES - TAIL
-app.use("*", (res: Response) => {
-  res.status(StatusCodes.NOT_FOUND).send(
-    `<h1>Route Doesnt Exist</h1>
-  <a href="/">Go Back</a>`
-  );
-});
+// app.use("*", (res: Response) => {
+//   res.status(StatusCodes.NOT_FOUND).send(
+//     `<h1>Route Doesnt Exist</h1>
+//   <a href="/">Go Back</a>`
+//   );
+// });
 
 // 404 MIDDLEWARE
 app.use("*", (req: Request, res: Response, next: NextFunction) => {
@@ -117,7 +117,7 @@ app.use((err: any | Error, req: Request, res: Response, next: NextFunction) => {
       msg,
     });
   }
-  return res.status(StatusCodes.INTERNAL_SERVER_ERROR).json({
+  res.status(StatusCodes.INTERNAL_SERVER_ERROR).json({
     msg,
   });
 });
